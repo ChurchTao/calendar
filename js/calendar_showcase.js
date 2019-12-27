@@ -14,7 +14,8 @@ var customBiz = {
 		// 初始化日历
 
 		var calendar = new Calendar({
-			mode: 'multiply',
+			// mode: 'multiply',
+			mode: 'single',
 			// swiper滑动容器
 			container: "#calendar",
 			// 上一月节点
@@ -39,9 +40,13 @@ var customBiz = {
 			// 滑动回调
 			swipeCallback: function(item) {
 				var defaultDate = item.date;
-				console.log(item)
-				// 设置标题
-				setTitle(defaultDate);
+				var changeNum = 0;
+				if (item.action=="next"){
+					changeNum=1;
+				} else {
+                    changeNum=-1
+				}
+				refreshMonthBox(item,changeNum)
 				
 				// 动态新增点击样式
 				// calendar.addActiveStyleFordate(defaultDate);
@@ -55,15 +60,33 @@ var customBiz = {
 			],
             tipsList: [
 				{date:'2019-12-25',class:'hdjr_tip',text:'吉'},
-				{date:'2019-12-27',class:'hdjr_tip',text:'凶'}
+				{date:'2019-12-27',class:'hdjr_tip',text:'吉'}
 			]
 		});
-		// 设置标题
-		var titleNode = document.querySelector('.mid span');
+		var monthBox = document.querySelector('.top-month-box');
 
-		function setTitle(date) {
-			titleNode.innerText = date;
-		}
+		function initMonthBox() {
+			var html = '';
+            var curMonth = new Date().getMonth() + 1;
+            for (var i = 0; i < 5; i++) {
+            	var trueMonth;
+            	if (curMonth+i>12){
+            		trueMonth = curMonth + i - 12;
+				} else {
+            		trueMonth = curMonth + i
+				}
+            	if (i==0) {
+                    html+='<div class="month-box-item active">'+(trueMonth)+'月</div>'
+				}  else {
+                    html+='<div class="month-box-item">'+(trueMonth)+'月</div>'
+                }
+            }
+            monthBox.innerHTML = html;
+        }
+		function refreshMonthBox(date,changeNum) {
+
+        }
+        initMonthBox();
 
 	}
 }

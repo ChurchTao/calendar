@@ -812,14 +812,14 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     //console.log("=======默认日历主题模板=======");
                     // =======默认日历主题模板=======
                     // 上一月和下一月不可点击模板
-                    if(value.date == curr && self.options.mode=='single') {
+                    // if(value.date == curr && self.options.mode=='single') {
                         //今天
                         // if(value.isSelected) {
                             // template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">今天</p><span class="dot dot-type1"></span></div>';
                         // } else {
-                            template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">今天</p></div>';
+                        //     template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">今天</p></div>';
                         // }
-                    } else {
+                    // } else {
                         if(value.isSelected=="1") {
                             // 个性化和业务贴近
                             // template = '<div class="em-calendar-item em-calendar-active isforbid{{isforbid}} tip{{tip}}" date="{{date}}" ><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p><span class="dot dot-type1"></span></div>';
@@ -827,7 +827,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         } else {
                             template = '<div class="em-calendar-item  isforbid{{isforbid}} tip{{tip}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p></div>';
                         }
-                    }
+                    // }
                     html += Mustache.render(template, value);
                 } else {
                     // console.log("=======自定义传入=======");
@@ -1038,7 +1038,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         month: self.tom(currMonthIndex),
                         day: currDayIndex,
                         date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                        dayCount: self.dayCount
+                        dayCount: self.dayCount,
+                        action: 'next'
                     });
                     /**
                      * @description 后加
@@ -1114,7 +1115,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         month: self.tom(currMonthIndex),
                         day: currDayIndex,
                         date: currYearIndex + "-" + self.tom(currMonthIndex) + "-" + currDayIndex,
-                        dayCount: self.dayCount
+                        dayCount: self.dayCount,
+                        action: 'prev'
                     });
 
                     if(preMonthIndex == 0) {
