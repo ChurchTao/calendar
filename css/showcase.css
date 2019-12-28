@@ -1,73 +1,7 @@
-/** 
- * 作者： 孙尊路
- * 创建时间：2017/06/16 14:47:28
- * 版本： [1.0, 2017/6/16]
- * 版权： 江苏国泰新点软件有限公司
- * 描述： 我的日程 
-**/
-
-
 /*全局格式化样式*/
 
 body,
-.mui-content {
-	background-color: #F5F5F5;
-}
-
-
 /*日历*/
-
-.em-calendar {
-	border-bottom: 1px solid #e0e0e0;
-}
-
-
-/*左右切换*/
-
-.em-journal-title {
-	width: 100%;
-	display: block;
-	height: 50px;
-	line-height: 50px;
-	background-color: #3C80E6;
-}
-
-.em-per-block {
-	float: left;
-	width: 33%;
-	color: #fff;
-	font-size: 18px;
-}
-
-.em-per-block.pre {
-	text-align: left;
-	font-size: 15px;
-}
-
-.em-per-block.next:active,
-.em-per-block.pre:active {
-	background-color: #3a79d8;
-	border-radius: 15px;
-	font-weight: 800;
-}
-
-.em-per-block.mid {
-	text-align: center;
-	font-size: 18px;
-}
-
-.em-per-block.next {
-	text-align: right;
-	font-size: 15px;
-}
-
-.backToday {
-	background: #3c80e6;
-	color: #fff;
-	height: 44px;
-	line-height: 44px;
-	text-align: center;
-}
 
 .hdjr_tip{
 
@@ -87,13 +21,10 @@ body,
 	color: #909399;
 	text-align: center;
 	position: relative;
+	box-shadow: 0 1px 0 0 #E7E7E7;
 }
-.top-month-box .active{
-	font-family: 'PingFangSC-Semibold';
-	font-size: 0.28rem;
-	color: #303133;
-}
-.top-month-box .active:after{
+.month-box-item:after{
+	opacity: 0;
 	content: '';
 	position: absolute;
 	top: 0;
@@ -105,4 +36,13 @@ body,
 	width: 0.5rem;
 	height: 0.06rem;
 	margin: 50% auto 0;
+	transition: 0.8s;
+}
+.top-month-box .active{
+	font-family: 'PingFangSC-Semibold';
+	font-size: 0.28rem;
+	color: #303133;
+}
+.top-month-box .active:after{
+	opacity: 1;
 }

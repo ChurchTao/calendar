@@ -1,50 +1,4 @@
-/**
- * 作者: 孙尊路
- * 创建时间: 2017-07-14 13:26:47
- * 版本: [1.0, 2017/7/14]
- * 版权: 江苏国泰新点软件有限公司
- * 说明： 常用工具js
- */
 window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
-
-    /**
-     * 产生一个 唯一uuid，默认为32位的随机字符串，8-4-4-4-12 格式
-     * @param {Object} options 配置参数
-     * len 默认为32位，最大不能超过36，最小不能小于4
-     * radix 随机的基数，如果小于等于10代表只用纯数字，最大为62，最小为2，默认为62
-     * type 类别，默认为default代表 8-4-4-4-12的模式，如果为 noline代表不会有连线
-     * @return {String} 返回一个随机性的唯一uuid
-     */
-    exports.uuid = function (options) {
-        options = options || {};
-
-        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
-            uuid = [],
-            i;
-        var radix = options.radix || chars.length;
-        var len = options.len || 32;
-        var type = options.type || 'default';
-
-        len = Math.min(len, 36);
-        len = Math.max(len, 4);
-        radix = Math.min(radix, 62);
-        radix = Math.max(radix, 2);
-
-        if(len) {
-            for(i = 0; i < len; i++) {
-                uuid[i] = chars[0 | Math.random() * radix];
-            }
-
-            if(type === 'default') {
-                len > 23 && (uuid[23] = '-');
-                len > 18 && (uuid[18] = '-');
-                len > 13 && (uuid[13] = '-');
-                len > 8 && (uuid[8] = '-');
-            }
-        }
-
-        return uuid.join('');
-    };
 
     var class2type = {};
 
@@ -60,12 +14,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         function (object) {
             return object instanceof Array;
         };
-
-    /**
-     * isWindow(需考虑obj为undefined的情况)
-     * @param {Object} obj 需要判断的对象
-     * @return {Boolean} 返回true或false
-     */
     exports.isWindow = function (obj) {
         return obj && obj === window;
     };
@@ -75,40 +23,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
     exports.type = function (obj) {
         return(obj === null || obj === undefined) ? String(obj) : class2type[{}.toString.call(obj)] || 'object';
     };
-    /**
-     * each遍历操作
-     * @param {Object} elements 元素
-     * @param {Function} callback 回调
-     * @param {Function} hasOwnProperty 过滤函数
-     * @returns {global} 返回调用的上下文
-     */
-    exports.each = function (elements, callback, hasOwnProperty) {
-        if(!elements) {
-            return this;
-        }
-        if(typeof elements.length === 'number') {
-            [].every.call(elements, function (el, idx) {
-                return callback.call(el, idx, el) !== false;
-            });
-        } else {
-            for(var key in elements) {
-                if(hasOwnProperty) {
-                    if(elements.hasOwnProperty(key)) {
-                        if(callback.call(elements[key], key, elements[key]) === false) {
-                            return elements;
-                        }
-                    }
-                } else {
-                    if(callback.call(elements[key], key, elements[key]) === false) {
-                        return elements;
-                    }
-                }
-            }
-        }
-
-        return this;
-    };
-
     /**
      * extend 合并多个对象，可以递归合并
      * @param {type} deep 是否递归合并
@@ -177,194 +91,12 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 }
             }
         }
-
         return target;
     };
-
-    exports.each(['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Object', 'Error'], function (i, name) {
-        class2type['[object ' + name + ']'] = name.toLowerCase();
-    });
-
-    /**
-     * 选择这段代码用到的太多了，因此抽取封装出来
-     * @param {Object} element dom元素或者selector
-     * @return {HTMLElement} 返回对应的dom
-     */
-    exports.selector = function (element) {
-        if(typeof element === 'string') {
-            element = document.querySelector(element);
-        }
-
-        return element;
-    };
-
-    /**
-     * 设置一个Util对象下的命名空间
-     * @param {String} namespace 命名空间
-     * @param {Object} obj 需要赋值的目标对象
-     * @return {Object} 返回目标对象
-     */
-    exports.namespace = function (namespace, obj) {
-        var parent = window.Util;
-
-        if(!namespace) {
-            return parent;
-        }
-
-        var namespaceArr = namespace.split('.'),
-            len = namespaceArr.length;
-
-        for(var i = 0; i < len - 1; i++) {
-            var tmp = namespaceArr[i];
-
-            // 不存在的话要重新创建对象
-            parent[tmp] = parent[tmp] || {};
-            // parent要向下一级
-            parent = parent[tmp];
-        }
-        parent[namespaceArr[len - 1]] = obj;
-
-        return parent[namespaceArr[len - 1]];
-    };
-
-    /**
-     * 获取这个模块下对应命名空间的对象
-     * 如果不存在，则返回null，这个api只要是供内部获取接口数据时调用
-     * @param {Object} module 模块
-     * @param {Array} namespace 命名空间
-     * @return {Object} 返回目标对象
-     */
-    exports.getNameSpaceObj = function (module, namespace) {
-        if(!namespace) {
-            return null;
-        }
-        var namespaceArr = namespace.split('.'),
-            len = namespaceArr.length;
-
-        for(var i = 0; i < len; i++) {
-            module && (module = module[namespaceArr[i]]);
-        }
-
-        return module;
-    };
-
-    /**
-     * 将string字符串转为html对象,默认创一个div填充
-     * 因为很常用，所以单独提取出来了
-     * @param {String} strHtml 目标字符串
-     * @return {HTMLElement} 返回处理好后的html对象,如果字符串非法,返回null
-     */
-    exports.parseHtml = function (strHtml) {
-        if(!strHtml || typeof (strHtml) !== 'string') {
-            return null;
-        }
-        // 创一个灵活的div
-        var i,
-            a = document.createElement('div');
-        var b = document.createDocumentFragment();
-
-        a.innerHTML = strHtml;
-        while((i = a.firstChild)) {
-            b.appendChild(i);
-        }
-
-        return b;
-    };
-
-    /**
-     * 图片的base64字符串转Blob
-     * @param {String} urlData 完整的base64字符串
-     * @return {Blob} 转换后的Blob对象，可用于表单文件上传
-     */
-    exports.base64ToBlob = function (urlData) {
-        var arr = urlData.split(',');
-        var mime = arr[0].match(/:(.*?);/)[1] || 'image/png';
-        // 去掉url的头，并转化为byte
-        var bytes = window.atob(arr[1]);
-        // 处理异常,将ascii码小于0的转换为大于0
-        var ab = new ArrayBuffer(bytes.length);
-        // 生成视图（直接针对内存）：8位无符号整数，长度1个字节
-        var ia = new Uint8Array(ab);
-
-        for(var i = 0; i < bytes.length; i++) {
-            ia[i] = bytes.charCodeAt(i);
-        }
-
-        return new Blob([ab], {
-            type: mime
-        });
-    };
-
-    /**
-     * 通过传入key值,得到页面key的初始化传值
-     * 实际情况是获取 window.location.href 中的参数的值
-     * @param {String} key 键名
-     * @return {String} 键值
-     */
-    exports.getExtraDataByKey = function (key) {
-        if(!key) {
-            return null;
-        }
-        // 获取url中的参数值
-        var getUrlParamsValue = function (url, paramName) {
-            var paraString = url.substring(url.indexOf('?') + 1, url.length).split('&');
-            var paraObj = {};
-            var i,
-                j;
-
-            for(i = 0;
-                (j = paraString[i]); i++) {
-                paraObj[j.substring(0, j.indexOf('=')).toLowerCase()] = j.substring(j.indexOf('=') + 1, j.length);
-            }
-            var returnValue = paraObj[paramName.toLowerCase()];
-
-            // 需要解码浏览器编码
-            returnValue = decodeURIComponent(returnValue);
-            if(typeof (returnValue) === 'undefined') {
-                return undefined;
-            } else {
-                return returnValue;
-            }
-        };
-        var value = getUrlParamsValue(window.location.href, key);
-
-        if(value === 'undefined') {
-            value = null;
-        }
-
-        return value;
-    };
-
-    // 避免提示警告
-    var Console = console;
-
-    exports.log = function () {
-        // 方便后续控制
-        Console.log.apply(this, arguments);
-    };
-
-    exports.warn = function () {
-        Console.warn.apply(this, arguments);
-    };
-
-    exports.error = function () {
-        Console.error.apply(this, arguments);
-    };
-
     return exports;
 })({});
 /**
- * 作者: 孙尊路
- * 创建时间: 2017-07-14 13:26:47
- * 版本: [1.0, 2017/7/14]
- * 版权: 江苏国泰新点软件有限公司
  * 描述：日历组件基类
- * 实现方案：自定义日历组件+swiper插件的完美结合。
- * 更新日志：
- * (1)修复了农历显示不正确、不对应的问题
- * (2)增加了外部刷新的方法
- * (3)整体优化日程的解耦合情形
- * (4)优化实例化日期，增加时间戳
  */
 
 (function () {
@@ -407,7 +139,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         tipsList: [],
         checkedList:[],
         // 点击模式
-        mode: 'single'
+        mode: 'single',
+        // 可选择的日期开始时间
+        startDate: '',
+        // 可选择的日期结束时间
+        endDate: '',
     };
 
     function noop() {}
@@ -432,6 +168,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
 
     Calendar.prototype = {
         checkedList: [],
+        startDate: '',
+        endDate: '',
         /**
          * 初始化数据单独提取，方便refreshData使用
          * @param {Object} options 配置参数
@@ -465,7 +203,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             self.weekString = "日一二三四五六";
             self.sx = "鼠牛虎兔龙蛇马羊猴鸡狗猪";
             self.cYear, self.cMonth, self.cDay, self.TheDate;
-            self.CalendarData = new Array(0xA4B, 0x5164B, 0x6A5, 0x6D4, 0x415B5, 0x2B6, 0x957, 0x2092F, 0x497, 0x60C96, 0xD4A, 0xEA5, 0x50DA9, 0x5AD, 0x2B6, 0x3126E, 0x92E, 0x7192D, 0xC95, 0xD4A, 0x61B4A, 0xB55, 0x56A, 0x4155B, 0x25D, 0x92D, 0x2192B, 0xA95, 0x71695, 0x6CA, 0xB55, 0x50AB5, 0x4DA, 0xA5B, 0x30A57, 0x52B, 0x8152A, 0xE95, 0x6AA, 0x615AA, 0xAB5, 0x4B6, 0x414AE, 0xA57, 0x526, 0x31D26, 0xD95, 0x70B55, 0x56A, 0x96D, 0x5095D, 0x4AD, 0xA4D, 0x41A4D, 0xD25, 0x81AA5, 0xB54, 0xB6A, 0x612DA, 0x95B, 0x49B, 0x41497, 0xA4B, 0xA164B, 0x6A5, 0x6D4, 0x615B4, 0xAB6, 0x957, 0x5092F, 0x497, 0x64B, 0x30D4A, 0xEA5, 0x80D65, 0x5AC, 0xAB6, 0x5126D, 0x92E, 0xC96, 0x41A95, 0xD4A, 0xDA5, 0x20B55, 0x56A, 0x7155B, 0x25D, 0x92D, 0x5192B, 0xA95, 0xB4A, 0x416AA, 0xAD5, 0x90AB5, 0x4BA, 0xA5B, 0x60A57, 0x52B, 0xA93, 0x40E95);
+            self.CalendarData = [0xA4B, 0x5164B, 0x6A5, 0x6D4, 0x415B5, 0x2B6, 0x957, 0x2092F, 0x497, 0x60C96, 0xD4A, 0xEA5, 0x50DA9, 0x5AD, 0x2B6, 0x3126E, 0x92E, 0x7192D, 0xC95, 0xD4A, 0x61B4A, 0xB55, 0x56A, 0x4155B, 0x25D, 0x92D, 0x2192B, 0xA95, 0x71695, 0x6CA, 0xB55, 0x50AB5, 0x4DA, 0xA5B, 0x30A57, 0x52B, 0x8152A, 0xE95, 0x6AA, 0x615AA, 0xAB5, 0x4B6, 0x414AE, 0xA57, 0x526, 0x31D26, 0xD95, 0x70B55, 0x56A, 0x96D, 0x5095D, 0x4AD, 0xA4D, 0x41A4D, 0xD25, 0x81AA5, 0xB54, 0xB6A, 0x612DA, 0x95B, 0x49B, 0x41497, 0xA4B, 0xA164B, 0x6A5, 0x6D4, 0x615B4, 0xAB6, 0x957, 0x5092F, 0x497, 0x64B, 0x30D4A, 0xEA5, 0x80D65, 0x5AC, 0xAB6, 0x5126D, 0x92E, 0xC96, 0x41A95, 0xD4A, 0xDA5, 0x20B55, 0x56A, 0x7155B, 0x25D, 0x92D, 0x5192B, 0xA95, 0xB4A, 0x416AA, 0xAD5, 0x90AB5, 0x4BA, 0xA5B, 0x60A57, 0x52B, 0xA93, 0x40E95];
             self.madd[0] = 0;
             self.madd[1] = 31;
             self.madd[2] = 59;
@@ -478,6 +216,13 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             self.madd[9] = 273;
             self.madd[10] = 304;
             self.madd[11] = 334;
+            try {
+              self.startDate=parseInt(self.options.startDate.replace(/-/g,''));
+              self.endDate=parseInt(self.options.endDate.replace(/-/g,''));
+            } catch (e) {
+              self.startDate='';
+              self.endDate='';
+            }
 
             // 生成日历
             self.initEntry();
@@ -548,7 +293,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     year: curYear,
                     month: curMonth,
                     day: curDay
-                }
+                };
                 // 生成本月份的日历
                 self.refreshData(inputObj, function (output1) {
                     outputs.push({
@@ -610,7 +355,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 var m = parseInt(self.nowMonth);
                 m = -1 + m;
                 if(m == 0) {
-                    m = 12
+                    m = 12;
                     y = parseInt(self.nowYear - 1)
                 }
                 fileInfo[tmpName] = preMonthDay;
@@ -738,7 +483,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         /**
          * 视图的渲染和数据分离，采用内部的数据
          */
-        //_render: function(fileInfo, tmpInfo, activeSlideNode) {
         _render: function (dataObj, callback) {
             var self = this;
             // 渲染之前，业务ajax请求，显示日历上日程标记
@@ -746,24 +490,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             // 必须设置延迟300ms,否则滑动有偏差
             setTimeout(function () {
                 self.options.dataRequest(dateStr, function (data) {
-
                     var res = data || [];
                     //和业务绑定
                     if(self.options.isDebug) {
                         console.log("*********业务数据：********:\n" + JSON.stringify(res) + "\n");
                     }
-                    // for(var j = 0; j < res.length; j++) {
-                    //     for(var i = 0; i < dataObj.tmpInfo.length; i++) {
-                    //         if(res[j].date == dataObj.tmpInfo[i].date) {
-                    //             dataObj.tmpInfo[i].isSelected = "1";
-                    //         }
-                    //     }
-                    // }
-                        // for(var i = 0; i < dataObj.tmpInfo.length; i++) {
-                        //     if(res[j] == dataObj.tmpInfo[i].date) {
-                        //         dataObj.tmpInfo[i].isSelected = "1";
-                        //     }
-                        // }
                     for(var k = 0; k < dataObj.tmpInfo.length; k++) {
                         var tipClassItem = self._isShowTips(dataObj.tmpInfo[k].date);
                         if (tipClassItem!=""){
@@ -776,6 +507,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                                 dataObj.tmpInfo[k].isSelected = "1";
                             }
                         }
+                        dataObj.tmpInfo[k].disabled = self._isDisAble(dataObj.tmpInfo[k].date)
                     }
                     //完全支持自定义外部传入模板
                     var html = self.getThemeHtml(dataObj);
@@ -786,8 +518,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     if(typeof (callback) == "function") {
                         callback && callback(html, dataObj.tmpInfo);
                     }
-
-                    return;
                 }, self);
             }, 100);
         },
@@ -812,22 +542,13 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     //console.log("=======默认日历主题模板=======");
                     // =======默认日历主题模板=======
                     // 上一月和下一月不可点击模板
-                    // if(value.date == curr && self.options.mode=='single') {
-                        //今天
-                        // if(value.isSelected) {
-                            // template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">今天</p><span class="dot dot-type1"></span></div>';
-                        // } else {
-                        //     template = '<div class="em-calendar-item em-calendar-active  isforbid{{isforbid}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">今天</p></div>';
-                        // }
-                    // } else {
-                        if(value.isSelected=="1") {
-                            // 个性化和业务贴近
-                            // template = '<div class="em-calendar-item em-calendar-active isforbid{{isforbid}} tip{{tip}}" date="{{date}}" ><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p><span class="dot dot-type1"></span></div>';
-                            template = '<div class="em-calendar-item em-calendar-active isforbid{{isforbid}} tip{{tip}}" date="{{date}}" ><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p></div>';
-                        } else {
-                            template = '<div class="em-calendar-item  isforbid{{isforbid}} tip{{tip}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p></div>';
-                        }
-                    // }
+                    if(value.isSelected=="1") {
+                        // 个性化和业务贴近
+                        // template = '<div class="em-calendar-item em-calendar-active isforbid{{isforbid}} tip{{tip}}" date="{{date}}" ><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p><span class="dot dot-type1"></span></div>';
+                        template = '<div class="em-calendar-item em-calendar-active isforbid{{isforbid}} tip{{tip}} {{disabled}}" date="{{date}}" ><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p></div>';
+                    } else {
+                        template = '<div class="em-calendar-item  isforbid{{isforbid}} tip{{tip}} {{disabled}}" date="{{date}}"><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p></div>';
+                    }
                     html += Mustache.render(template, value);
                 } else {
                     // console.log("=======自定义传入=======");
@@ -900,9 +621,21 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         _isShowTips: function (dateStr) {
             var self = this;
             for (var i = 0; i < self.options.tipsList.length; i++) {
-               if (dateStr == self.options.tipsList[i].date){
-                   return self.options.tipsList[i];
-               }
+                if (dateStr == self.options.tipsList[i].date){
+                    return self.options.tipsList[i];
+                }
+            }
+            return "";
+        },
+        _isDisAble: function (dateStr) {
+            var self = this;
+            try {
+                var date = parseInt(dateStr.replace(/-/g,''));
+                if (date<self.startDate || date>self.endDate){
+                    return 'disabled';
+                }
+            } catch (e) {
+                return "";
             }
             return "";
         },
@@ -919,7 +652,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             var nextCallback = self.options.nextCallback;
 
             // 记录上一月和上一年的索引
-            var preMonthIndex = parseInt(self.curMonth) - parseInt(2);;
+            var preMonthIndex = parseInt(self.curMonth) - parseInt(2);
             var preYearIndex = self.curYear;
             // 记录下一月和下一年的索引
             var nextMonthIndex = parseInt(self.curMonth);
@@ -952,21 +685,20 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     }
                     // 可点击区域
                     if(!_this.classList.contains('isforbid0')) {
-                        if(_this.getAttribute("date")) {
+                        if(_this.getAttribute("date") && !_this.classList.contains('disabled')) {
                             if (self.options.mode == 'single'){
-                                console.log('1')
                                 _this.classList.add('em-calendar-active');
                                 self.sibling(_this, function (el) {
                                     el.classList.remove('em-calendar-active');
                                 });
+                                self.checkedList = [dateStr]
                             } else {
-                                console.log('2')
                                 var index = self.checkedList.indexOf(dateStr);
                                 if (index > -1){
                                     self.checkedList.splice(index,1);
                                     _this.classList.remove('em-calendar-active');
                                 } else {
-                                    self.checkedList.push(dateStr)
+                                    self.checkedList.push(dateStr);
                                     _this.classList.add('em-calendar-active');
                                 }
                             }
@@ -979,30 +711,23 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                             // 前进
                             self.slidePrev().then(function () {
                                 // 给特定日期新增点击激活样式
-                                self.addActiveStyleFordate(dateStr);
+                                // self.addActiveStyleFordate(dateStr);
                             });
                         } else if(_this.classList.contains('tipnext')) {
                             // 后退
                             self.slideNext().then(function () {
                                 // 给特定日期新增点击激活样式
-                                self.addActiveStyleFordate(dateStr);
+                                // self.addActiveStyleFordate(dateStr);
                             });
 
                         }
                     }
                     // 点击回调
-                    if (self.options.mode == 'single'){
-                        onItemClick && onItemClick({
-                            date: dateStr, //日期
-                            lunar: lunarStr //农历
-                        });
-                    } else {
-                        onItemClick && onItemClick({
+                    onItemClick && onItemClick({
                             date: dateStr, //日期
                             lunar: lunarStr, //农历
                             checkedList: self.checkedList
-                        });
-                    }
+                    });
 
                 },
                 /**
@@ -1149,15 +874,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         swiper.prependSlide(html);
                     });
 
-                    // 如果往前滑动时前一个月非当前月，重新渲染1号样式
-                    // if(self.tom(currMonthIndex) !== self.curMonth) {
-                    //     var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
-                    //     if(chooseDom) {
-                    //         chooseDom.classList.remove('em-calendar-active')
-                    //     }
-                    //     document.querySelector('.swiper-slide-active .isforbid1').classList.add('em-calendar-active')
-                    //
-                    // }
                 }
             });
 
@@ -1179,17 +895,26 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
          * @param {Object} dateStr 点击后的日期 ,例如：“2018-08-20”
          */
         addActiveStyleFordate: function (dateStr) {
-            console.log(dateStr)
             var self = this;
             // 给前后月的点击日期加选中标记
             var clickactives = document.querySelector('.swiper-slide-active').querySelectorAll('.em-calendar-item');
             for(var i = 0; i < clickactives.length; i++) {
                 if(clickactives[i].getAttribute("date") == dateStr) {
-                    if (self.options.mode=="single"){
+                    if (self.options.mode == 'single'){
                         clickactives[i].classList.add('em-calendar-active');
                         self.sibling(clickactives[i], function (el) {
                             el.classList.remove('em-calendar-active');
                         });
+                        self.checkedList = [dateStr]
+                    } else {
+                        var index = self.checkedList.indexOf(dateStr);
+                        if (index > -1){
+                            self.checkedList.splice(index,1);
+                            clickactives[i].classList.remove('em-calendar-active');
+                        } else {
+                            self.checkedList.push(dateStr);
+                            clickactives[i].classList.add('em-calendar-active');
+                        }
                     }
                 }
             }
@@ -1317,18 +1042,6 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             }
             // 如果不在数组中就会返回false 
             return false;
-        },
-        // 遍历查找同级元素
-        _sibling: function (elem, forCB) {
-            var r = [];
-            var n = elem.parentNode.firstChild;
-            for(; n; n = n.nextSibling) {
-                if(n.nodeType === 1 && n !== elem) {
-                    if(forCB && typeof (forCB) == "function") {
-                        forCB(n);
-                    }
-                }
-            }
         },
         _getBit: function (m, n) {
             var self = this;
