@@ -1,0 +1,171 @@
+.bottom-appointment-form{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	font-size: 0;
+	padding: 0 0.3rem;
+	box-sizing: border-box;
+	padding-top: 0.2rem;
+	z-index: 9;
+	background: #ffffff;
+	box-shadow: 0 -1px 0 0 #EEEEEE;
+}
+.bottom-appointment-form .form-title{
+	font-family: 'PingFang-SC-Medium';
+	font-size: 0.3rem;
+	color: #303133;
+	margin-bottom: 0.2rem;
+}
+.bottom-appointment-form .form-input{
+	margin-bottom: 0.4rem;
+	text-align: center;
+}
+.bottom-appointment-form .form-input input{
+	height: 0.8rem;
+	background: #F6F7FA;
+	border: 1px solid #E6E7E9;
+	border-radius: 0.06rem;
+	font-family: 'PingFang-SC-Regular';
+	font-size: 0.28rem;
+	color: #303133;
+	width: 100%;
+	box-sizing: border-box;
+	padding-left: 0.3rem;
+	-webkit-appearance: none;
+}
+.bottom-appointment-form .form-input input::-webkit-input-placeholder{
+	font-family: 'PingFang-SC-Regular'!important;
+	font-size: 0.28rem!important;
+	color: #c4c4c4!important;
+
+}
+.bottom-appointment-form .form-input input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+	font-family: 'PingFang-SC-Regular'!important;
+	font-size: 0.28rem!important;
+	color: #C4C4C4!important;
+}
+.bottom-appointment-form .form-input input::-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+	font-family: 'PingFang-SC-Regular'!important;
+	font-size: 0.28rem!important;
+	color: #C4C4C4!important;
+}
+.bottom-appointment-form .form-input input::-ms-input-placeholder{  /* Internet Explorer 10-11 */
+	font-family: 'PingFang-SC-Regular'!important;
+	font-size: 0.28rem!important;
+	color: #C4C4C4!important;
+}
+
+.bottom-appointment-form .form-submit{
+	height: 0.98rem;
+	line-height: 0.98rem;
+	background: #91C700;
+	border-radius: 0.1rem;
+	font-family: 'PingFang-SC-Medium';
+	font-size: 0.36rem;
+	color: #FFFFFF;
+	letter-spacing: 0.03rem;
+	text-align: center;
+	margin-bottom: 0.3rem;
+}
+.em-calendar-content .em-calendar-item{
+	height: unset;
+	/*height: 0.56rem;*/
+	padding: 0.20rem 0;
+}
+
+
+.em-calendar-content .isforbid0.em-calendar-item .day {
+	padding-top: 0;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	font-size: 0.32rem;
+}
+
+.em-calendar-content .isforbid0.em-calendar-item .lunar {
+	margin-top: 0;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	font-size: 0.20rem;
+}
+
+.em-calendar-content .em-calendar-item .day {
+	padding-top: 0;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	font-size: 0.32rem;
+}
+
+.em-calendar-content .em-calendar-item .lunar {
+	margin-top: 0;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	font-size: 0.20rem;
+}
+
+.em-calendar-content .disabled.em-calendar-item .day {
+	padding-top: 0;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	font-size: 0.32rem;
+}
+
+.em-calendar-content .disabled.em-calendar-item .lunar {
+	margin-top: 0;
+	height: 0.4rem;
+	line-height: 0.4rem;
+	font-size: 0.20rem;
+}
+
+.em-calendar-active .background-circle{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 0.88rem;
+	height: 0.88rem;
+	background-color: rgb(255,40,65);
+	z-index: -1;
+	border-radius: 50%;
+	margin: auto;
+}
+#calendar{
+	padding-bottom: 4rem;
+}
+
+.em-week {
+	padding-top: 0.36rem;
+	padding-bottom: 0.3rem;
+	font-size: 0.26rem;
+}
+
+.em-calendar-content .em-calendar-item .tips{
+	position: absolute;
+	font-family: 'PingFangSC-Regular';
+	font-size: 0.24rem;
+	color: #F2624E;
+	left: 0.06rem;
+	top: 0.06rem;
+}
+
+@media screen and (min-width: 751px) {
+	html{
+		height: 100%;
+	}
+	body{
+		height: 200%;
+		background: #e4e7eb!important;
+		overflow: hidden;
+	}
+	.main-content {
+		transform: translate(0, -25%) scale(0.5);
+		height: 200%;
+		overflow: auto;
+		width: 750px;
+		margin: 0 auto;
+		background: #FFFFFF;
+	}
+	.main-content::-webkit-scrollbar {
+		display: none;
+	}
+}

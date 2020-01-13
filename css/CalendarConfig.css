@@ -1,7 +1,7 @@
-/*ÂÖ®Â±ÄÊ†ºÂºèÂåñÊ†∑Âºè*/
+/*»´æ÷∏Ò ΩªØ—˘ Ω*/
 
 body,
-/*Êó•ÂéÜ*/
+/*»’¿˙*/
 
 .hdjr_tip{
 
@@ -12,7 +12,7 @@ body,
 	height: 0.8rem;
 	width: 100%;
 }
-.month-box-item{
+.month-box-item,.month-box-item:link,.month-box-item:visited,.month-box-item:hover,.month-box-item:active,.month-box-item:focus{
 	flex: 1;
 	height: 0.8rem;
 	line-height: 0.8rem;
@@ -21,21 +21,23 @@ body,
 	color: #909399;
 	text-align: center;
 	position: relative;
-	box-shadow: 0 1px 0 0 #E7E7E7;
+	border-bottom: thin solid #e7e7e7;
+	display: block;
+	text-decoration:none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0)!important;
 }
 .month-box-item:after{
 	opacity: 0;
 	content: '';
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
+	left: 50%;
 	bottom: 0;
 	background-image: linear-gradient(-90deg, #C3CA00 0%, #8BC700 100%);
 	border-radius: 0.04rem;
 	width: 0.5rem;
 	height: 0.06rem;
-	margin: 50% auto 0;
+	margin-left: -0.25rem;
 	transition: 0.8s;
 }
 .top-month-box .active{

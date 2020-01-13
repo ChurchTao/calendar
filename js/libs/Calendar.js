@@ -1,3 +1,8 @@
+/**
+ * @Description: Calender.js
+ * @Version:     v1.0
+ * @Author:      TJC
+ */
 window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
 
     var class2type = {};
@@ -24,43 +29,43 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         return(obj === null || obj === undefined) ? String(obj) : class2type[{}.toString.call(obj)] || 'object';
     };
     /**
-     * extend åˆå¹¶å¤šä¸ªå¯¹è±¡ï¼Œå¯ä»¥é€’å½’åˆå¹¶
-     * @param {type} deep æ˜¯å¦é€’å½’åˆå¹¶
-     * @param {type} target æœ€ç»ˆè¿”å›çš„å°±æ˜¯target
-     * @param {type} source ä»å·¦åˆ°åˆï¼Œä¼˜å…ˆçº§ä¾æ¬¡æé«˜ï¼Œæœ€å³ä¾§çš„æ˜¯æœ€åè¦†ç›–çš„
-     * @returns {Object} æœ€ç»ˆçš„åˆå¹¶å¯¹è±¡
+     * extend ºÏ²¢¶à¸ö¶ÔÏó£¬¿ÉÒÔµİ¹éºÏ²¢
+     * @param {type} deep ÊÇ·ñµİ¹éºÏ²¢
+     * @param {type} target ×îÖÕ·µ»ØµÄ¾ÍÊÇtarget
+     * @param {type} source ´Ó×óµ½ÓÖ£¬ÓÅÏÈ¼¶ÒÀ´ÎÌá¸ß£¬×îÓÒ²àµÄÊÇ×îºó¸²¸ÇµÄ
+     * @returns {Object} ×îÖÕµÄºÏ²¢¶ÔÏó
      */
     exports.extend = function () {
         var args = [].slice.call(arguments);
 
-        // ç›®æ ‡
+        // Ä¿±ê
         var target = args[0] || {},
-            // é»˜è®¤sourceä»1å¼€å§‹
+            // Ä¬ÈÏsource´Ó1¿ªÊ¼
             index = 1,
             len = args.length,
-            // é»˜è®¤éæ·±å¤åˆ¶
+            // Ä¬ÈÏ·ÇÉî¸´ÖÆ
             deep = false;
 
         if(typeof target === 'boolean') {
-            // å¦‚æœå¼€å¯äº†æ·±å¤åˆ¶
+            // Èç¹û¿ªÆôÁËÉî¸´ÖÆ
             deep = target;
             target = args[index] || {};
             index++;
         }
 
         if(!exports.isObject(target)) {
-            // ç¡®ä¿æ‹“å±•çš„ä¸€å®šæ˜¯object
+            // È·±£ÍØÕ¹µÄÒ»¶¨ÊÇobject
             target = {};
         }
 
         for(; index < len; index++) {
-            // sourceçš„æ‹“å±•
+            // sourceµÄÍØÕ¹
             var source = args[index];
 
             if(source && exports.isObject(source)) {
                 for(var name in source) {
                     if(!Object.prototype.hasOwnProperty.call(source, name)) {
-                        // é˜²æ­¢åŸå‹ä¸Šçš„æ•°æ®
+                        // ·ÀÖ¹Ô­ĞÍÉÏµÄÊı¾İ
                         continue;
                     }
 
@@ -70,11 +75,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         copyIsArray;
 
                     if(target === copy) {
-                        // é˜²æ­¢ç¯å½¢å¼•ç”¨
+                        // ·ÀÖ¹»·ĞÎÒıÓÃ
                         continue;
                     }
 
-                    // è¿™é‡Œå¿…é¡»ç”¨isPlainObject,åªæœ‰åŒæ ·æ˜¯æ™®é€šçš„objectæ‰ä¼šå¤åˆ¶ç»§æ‰¿ï¼Œå¦‚æœæ˜¯FormDataä¹‹æµçš„ï¼Œä¼šèµ°åé¢çš„è¦†ç›–è·¯çº¿
+                    // ÕâÀï±ØĞëÓÃisPlainObject,Ö»ÓĞÍ¬ÑùÊÇÆÕÍ¨µÄobject²Å»á¸´ÖÆ¼Ì³Ğ£¬Èç¹ûÊÇFormDataÖ®Á÷µÄ£¬»á×ßºóÃæµÄ¸²¸ÇÂ·Ïß
                     if(deep && copy && (exports.isPlainObject(copy) || (copyIsArray = exports.isArray(copy)))) {
                         if(copyIsArray) {
                             copyIsArray = false;
@@ -85,7 +90,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
 
                         target[name] = exports.extend(deep, clone, copy);
                     } else if(copy !== undefined) {
-                        // å¦‚æœä¸æ˜¯æ™®é€šçš„objectï¼Œç›´æ¥è¦†ç›–ï¼Œä¾‹å¦‚FormDataä¹‹ç±»çš„ä¼šè¦†ç›–
+                        // Èç¹û²»ÊÇÆÕÍ¨µÄobject£¬Ö±½Ó¸²¸Ç£¬ÀıÈçFormDataÖ®ÀàµÄ»á¸²¸Ç
                         target[name] = copy;
                     }
                 }
@@ -96,69 +101,69 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
     return exports;
 })({});
 /**
- * æè¿°ï¼šæ—¥å†ç»„ä»¶åŸºç±»
+ * ÃèÊö£ºÈÕÀú×é¼ş»ùÀà
  */
 
 (function () {
     "use strict";
 
     /**
-     * å…¨å±€ç”Ÿæ•ˆé»˜è®¤è®¾ç½®
-     * é»˜è®¤è®¾ç½®å¯ä»¥æœ€å¤§ç¨‹åº¦çš„å‡å°è°ƒç”¨æ—¶çš„ä»£ç 
+     * È«¾ÖÉúĞ§Ä¬ÈÏÉèÖÃ
+     * Ä¬ÈÏÉèÖÃ¿ÉÒÔ×î´ó³Ì¶ÈµÄ¼õĞ¡µ÷ÓÃÊ±µÄ´úÂë
      */
     var defaultOptions = {
-        // é»˜è®¤æ—¥å†ç»„ä»¶å®¹å™¨
+        // Ä¬ÈÏÈÕÀú×é¼şÈİÆ÷
         container: "#calendar",
-        // swiperæ»‘åŠ¨å®¹å™¨
+        // swiper»¬¶¯ÈİÆ÷
         swiper: ".swiper-container",
-        // é»˜è®¤æ˜¾ç¤ºå†œå†
+        // Ä¬ÈÏÏÔÊ¾Å©Àú
         isLunar: true,
-        // é»˜è®¤å¼€å¯æ°´å¹³æ–¹å‘åˆ‡æ¢æœˆä»½
+        // Ä¬ÈÏ¿ªÆôË®Æ½·½ÏòÇĞ»»ÔÂ·İ
         isSwipeH: true,
-        // é»˜è®¤å¼€å¯å‚ç›´æ–¹å‘åˆ‡æ¢æœˆä»½
+        // Ä¬ÈÏ¿ªÆô´¹Ö±·½ÏòÇĞ»»ÔÂ·İ
         isSwipeV: true,
-        // æ»‘åŠ¨å›è°ƒ
+        // »¬¶¯»Øµ÷
         swipeCallback: noop,
-        // ä¸Šä¸€æœˆèŠ‚ç‚¹
+        // ÉÏÒ»ÔÂ½Úµã
         pre: ".pre",
-        // ä¸Šä¸€æœˆå›è°ƒ
+        // ÉÏÒ»ÔÂ»Øµ÷
         preCallback: noop,
-        // ä¸‹ä¸€æœˆèŠ‚ç‚¹
+        // ÏÂÒ»ÔÂ½Úµã
         next: ".next",
-        // ä¸‹ä¸€æœˆå›è°ƒ
+        // ÏÂÒ»ÔÂ»Øµ÷
         nextCallback: noop,
-        // ç‚¹å‡»å›è°ƒ
+        // µã»÷»Øµ÷
         onItemClick: noop,
-        // è‡ªå®šä¹‰è¾“å…¥æ¨¡æ¿
+        // ×Ô¶¨ÒåÊäÈëÄ£°å
         template: noop,
-        // ä¸šåŠ¡æ•°æ®ç»‘å®š
+        // ÒµÎñÊı¾İ°ó¶¨
         dataRequest: noop,
-        // æ˜¯å¦å¼€å¯è°ƒè¯•
+        // ÊÇ·ñ¿ªÆôµ÷ÊÔ
         isDebug: false,
-        // æ˜¾ç¤ºå°æ ‡ç­¾çš„æ—¥æœŸæ•°ç»„
+        // ÏÔÊ¾Ğ¡±êÇ©µÄÈÕÆÚÊı×é
         tipsList: [],
         checkedList:[],
-        // ç‚¹å‡»æ¨¡å¼
+        // µã»÷Ä£Ê½
         mode: 'single',
-        // å¯é€‰æ‹©çš„æ—¥æœŸå¼€å§‹æ—¶é—´
+        // ¿ÉÑ¡ÔñµÄÈÕÆÚ¿ªÊ¼Ê±¼ä
         startDate: '',
-        // å¯é€‰æ‹©çš„æ—¥æœŸç»“æŸæ—¶é—´
-        endDate: '',
+        // ¿ÉÑ¡ÔñµÄÈÕÆÚ½áÊøÊ±¼ä
+        endDate: ''
     };
 
     function noop() {}
 
     /**
-     * æ—¥å†çš„æ„é€ å‡½æ•°
-     * @param {Object} options é…ç½®å‚æ•°ï¼Œå’Œinitä»¥åŠ_initDataçš„ä¸€è‡´
+     * ÈÕÀúµÄ¹¹Ôìº¯Êı
+     * @param {Object} options ÅäÖÃ²ÎÊı£¬ºÍinitÒÔ¼°_initDataµÄÒ»ÖÂ
      * @constructor
      */
     function Calendar(options) {
 
         options = innerCalendarUtil.extend({}, defaultOptions, options);
         if(!this._selector(options.container)) {
-            // æŠ›å¼‚å¸¸
-            throw new Error("ä¼ å…¥çš„æ—¥å†ç»„ä»¶å®¹å™¨Selector #idä¸å­˜åœ¨æˆ–è€…ä¸ºç©ºï¼Œè¯·ä»”ç»†æ£€æŸ¥ï¼");
+            // Å×Òì³£
+            throw new Error("´«ÈëµÄÈÕÀú×é¼şÈİÆ÷Selector #id²»´æÔÚ»òÕßÎª¿Õ£¬Çë×ĞÏ¸¼ì²é£¡");
             return;
         }
         this.container = this._selector(options.container);
@@ -171,16 +176,16 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         startDate: '',
         endDate: '',
         /**
-         * åˆå§‹åŒ–æ•°æ®å•ç‹¬æå–ï¼Œæ–¹ä¾¿refreshDataä½¿ç”¨
-         * @param {Object} options é…ç½®å‚æ•°
+         * ³õÊ¼»¯Êı¾İµ¥¶ÀÌáÈ¡£¬·½±ãrefreshDataÊ¹ÓÃ
+         * @param {Object} options ÅäÖÃ²ÎÊı
          */
         _initData: function (options) {
             var self = this;
             this.options = options;
 
-            // åˆ›å»ºæ—¥å†DOMç»“æ„ä½“
+            // ´´½¨ÈÕÀúDOM½á¹¹Ìå
             this.CreateDOMFactory(function () {
-                // ç¨‹åºå…¥å£
+                // ³ÌĞòÈë¿Ú
                 self._initParams();
             });
         },
@@ -190,18 +195,18 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             self.nowYear = self.DateObj().getFullYear();
             self.nowMonth = self.tod(self.DateObj().getMonth() + 1);
             self.nowDay = self.tod(self.DateObj().getDate());
-            // å½“å‰æ—¥æœŸ
+            // µ±Ç°ÈÕÆÚ
             self.currentDate = self.nowYear + "-" + self.nowMonth + "-" + self.nowDay;
 
-            // å®šä¹‰å…¨å±€å˜é‡ è®¡ç®—å†œå†
+            // ¶¨ÒåÈ«¾Ö±äÁ¿ ¼ÆËãÅ©Àú
             self.CalendarData = new Array(100);
             self.madd = new Array(12);
-            self.tgString = "ç”²ä¹™ä¸™ä¸æˆŠå·±åºšè¾›å£¬ç™¸";
-            self.dzString = "å­ä¸‘å¯…å¯è¾°å·³åˆæœªç”³é…‰æˆŒäº¥";
-            self.numString = "ä¸€äºŒä¸‰å››äº”å…­ä¸ƒå…«ä¹å";
-            self.monString = "æ­£äºŒä¸‰å››äº”å…­ä¸ƒå…«ä¹åå†¬è…Š";
-            self.weekString = "æ—¥ä¸€äºŒä¸‰å››äº”å…­";
-            self.sx = "é¼ ç‰›è™å…”é¾™è›‡é©¬ç¾ŠçŒ´é¸¡ç‹—çŒª";
+            self.tgString = "¼×ÒÒ±û¶¡Îì¼º¸ıĞÁÈÉ¹ï";
+            self.dzString = "×Ó³óÒúÃ®³½ËÈÎçÎ´ÉêÓÏĞçº¥";
+            self.numString = "Ò»¶şÈıËÄÎåÁùÆß°Ë¾ÅÊ®";
+            self.monString = "Õı¶şÈıËÄÎåÁùÆß°Ë¾ÅÊ®¶¬À°";
+            self.weekString = "ÈÕÒ»¶şÈıËÄÎåÁù";
+            self.sx = "ÊóÅ£»¢ÍÃÁúÉßÂíÑòºï¼¦¹·Öí";
             self.cYear, self.cMonth, self.cDay, self.TheDate;
             self.CalendarData = [0xA4B, 0x5164B, 0x6A5, 0x6D4, 0x415B5, 0x2B6, 0x957, 0x2092F, 0x497, 0x60C96, 0xD4A, 0xEA5, 0x50DA9, 0x5AD, 0x2B6, 0x3126E, 0x92E, 0x7192D, 0xC95, 0xD4A, 0x61B4A, 0xB55, 0x56A, 0x4155B, 0x25D, 0x92D, 0x2192B, 0xA95, 0x71695, 0x6CA, 0xB55, 0x50AB5, 0x4DA, 0xA5B, 0x30A57, 0x52B, 0x8152A, 0xE95, 0x6AA, 0x615AA, 0xAB5, 0x4B6, 0x414AE, 0xA57, 0x526, 0x31D26, 0xD95, 0x70B55, 0x56A, 0x96D, 0x5095D, 0x4AD, 0xA4D, 0x41A4D, 0xD25, 0x81AA5, 0xB54, 0xB6A, 0x612DA, 0x95B, 0x49B, 0x41497, 0xA4B, 0xA164B, 0x6A5, 0x6D4, 0x615B4, 0xAB6, 0x957, 0x5092F, 0x497, 0x64B, 0x30D4A, 0xEA5, 0x80D65, 0x5AC, 0xAB6, 0x5126D, 0x92E, 0xC96, 0x41A95, 0xD4A, 0xDA5, 0x20B55, 0x56A, 0x7155B, 0x25D, 0x92D, 0x5192B, 0xA95, 0xB4A, 0x416AA, 0xAD5, 0x90AB5, 0x4BA, 0xA5B, 0x60A57, 0x52B, 0xA93, 0x40E95];
             self.madd[0] = 0;
@@ -224,12 +229,12 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
               self.endDate='';
             }
 
-            // ç”Ÿæˆæ—¥å†
+            // Éú³ÉÈÕÀú
             self.initEntry();
 
         },
         /**
-         * åˆå§‹åŒ–æ—¥å†
+         * ³õÊ¼»¯ÈÕÀú
          */
         initEntry: function (op) {
             var self = this;
@@ -238,15 +243,15 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 month: "",
                 day: ""
             }, op);
-            //console.log("åˆå¹¶åï¼š"+JSON.stringify(options));
-            // è·å–å‰ä¸€ä¸ªæœˆä»½
+            //console.log("ºÏ²¢ºó£º"+JSON.stringify(options));
+            // »ñÈ¡Ç°Ò»¸öÔÂ·İ
             if(!options.year) {
-                options.year = self.DateObj().getFullYear(); //é»˜è®¤ä¸ä¼ ä¸º"å½“å‰å¹´"
+                options.year = self.DateObj().getFullYear(); //Ä¬ÈÏ²»´«Îª"µ±Ç°Äê"
             } else {
                 options.year = op.year;
             }
             if(!options.month) {
-                options.month = self.tod(self.DateObj().getMonth() + 1); //é»˜è®¤ä¸ä¼ ä¸º"å½“å‰æœˆ"
+                options.month = self.tod(self.DateObj().getMonth() + 1); //Ä¬ÈÏ²»´«Îª"µ±Ç°ÔÂ"
             } else {
                 options.month = op.month;
             }
@@ -263,11 +268,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             var preDay = self.tod("01");
             //if(self.options.isDebug) {
             if(self.options.isDebug) {
-                console.log("(å‰)åˆå§‹åŒ–å¹´æœˆæ—¥ï¼š" + preYear + "-" + preMonth + "-" + preDay);
+                console.log("(Ç°)³õÊ¼»¯ÄêÔÂÈÕ£º" + preYear + "-" + preMonth + "-" + preDay);
 
             }
 
-            // ç”Ÿæˆä¸Šä¸€ä¸ªæœˆä»½çš„æ—¥å†
+            // Éú³ÉÉÏÒ»¸öÔÂ·İµÄÈÕÀú
             var outputs = [];
             self.refreshData({
                 year: preYear,
@@ -278,28 +283,28 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     templ: output
                 });
 
-                // åˆå§‹åŒ–é»˜è®¤å½“å‰æ—¥æœŸ
+                // ³õÊ¼»¯Ä¬ÈÏµ±Ç°ÈÕÆÚ
                 var curYear = options.year || self.DateObj().getFullYear();
                 var curMonth = options.month || self.tod(self.DateObj().getMonth() + 1);
                 var curDay = options.day || self.tod(self.DateObj().getDate());
-                //alert("é»˜è®¤å¯¹ä¸å¯¹ï¼š"+curYear+"-"+curMonth+"-"+curDay);
+                //alert("Ä¬ÈÏ¶Ô²»¶Ô£º"+curYear+"-"+curMonth+"-"+curDay);
                 self.curYear = options.year || self.DateObj().getFullYear();
                 self.curMonth = options.month || self.tod(self.DateObj().getMonth() + 1);
                 self.curDay = options.day || self.tod(self.DateObj().getDate());
                 if(self.options.isDebug) {
-                    console.log("(ä¸­)åˆå§‹åŒ–å¹´æœˆæ—¥ï¼š" + curYear + "-" + curMonth + "-" + curDay);
+                    console.log("(ÖĞ)³õÊ¼»¯ÄêÔÂÈÕ£º" + curYear + "-" + curMonth + "-" + curDay);
                 }
                 var inputObj = {
                     year: curYear,
                     month: curMonth,
                     day: curDay
                 };
-                // ç”Ÿæˆæœ¬æœˆä»½çš„æ—¥å†
+                // Éú³É±¾ÔÂ·İµÄÈÕÀú
                 self.refreshData(inputObj, function (output1) {
                     outputs.push({
                         templ: output1
                     });
-                    // æ¸²æŸ“æ—¥å†æ¨¡æ¿
+                    // äÖÈ¾ÈÕÀúÄ£°å
                     var templ = self.SLIDER_ITEM_CONTAINER;
 
                     var html = "";
@@ -307,13 +312,13 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         html += Mustache.render(templ, outputs[i]);
                     }
                     document.querySelector(".swiper-wrapper").innerHTML = html;
-                    // åˆå§‹åŒ–swiperç›‘å¬
+                    // ³õÊ¼»¯swiper¼àÌı
                     self._addEvent();
                 });
             });
         },
         /**
-         * åˆ·æ–°æ—¥å†ï¼Œä¼ å…¥æ—¥æœŸæ ¼å¼é¡»ï¼š2017-07-01 æˆ–2017-12-09
+         * Ë¢ĞÂÈÕÀú£¬´«ÈëÈÕÆÚ¸ñÊ½Ğë£º2017-07-01 »ò2017-12-09
          */
         //refreshData: function(year, month, day, activeSlideNode) {
         refreshData: function (dateObj, callback) {
@@ -323,34 +328,34 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             self.nowMonth = self.tom(dateObj.month);
             self.nowDay = self.tod(dateObj.day);
 
-            // è·å–æ˜ŸæœŸ
+            // »ñÈ¡ĞÇÆÚ
             var tmptmp = new Date(Date.parse(self.nowYear + '/' + self.nowMonth + '/01'));
             var nowXingQiJi = tmptmp.getDay();
-            //console.log("æ˜ŸæœŸ"+nowXingQiJi);
+            //console.log("ĞÇÆÚ"+nowXingQiJi);
 
             nowXingQiJi = parseInt(nowXingQiJi);
             if(nowXingQiJi == 0) {
                 nowXingQiJi = 7;
             }
-            // æ ¹æ®å¹´ä»½ã€æœˆä»½ è®¡ç®—æœˆä»½ä¸­çš„å¤©æ•°ï¼ˆæ¯”å¦‚ï¼š28ã€29ã€30ã€31ç­‰ï¼‰
+            // ¸ù¾İÄê·İ¡¢ÔÂ·İ ¼ÆËãÔÂ·İÖĞµÄÌìÊı£¨±ÈÈç£º28¡¢29¡¢30¡¢31µÈ£©
             var dayCount = self._judgeDaysByYearMonth(self.nowYear, self.nowMonth);
-            // æ€»å¤©æ•°
+            // ×ÜÌìÊı
             self.dayCount = dayCount;
-            // ä¿ç•™è€çš„å­˜å‚¨æ–¹å¼
+            // ±£ÁôÀÏµÄ´æ´¢·½Ê½
             var fileInfo = {};
-            // æ–°çš„å­˜å‚¨æ–¹å¼
+            // ĞÂµÄ´æ´¢·½Ê½
             var tmpInfo = [];
 
             var preDayCount = self._judgeDaysByYearMonth(self.nowYear, parseInt(self.nowMonth - 1));
-            //console.log("å‰ä¸€æœˆæ€»å¤©æ•°ï¼š" + preDayCount);
+            //console.log("Ç°Ò»ÔÂ×ÜÌìÊı£º" + preDayCount);
             preDayCount = parseInt(preDayCount);
 
-            // å¤´éƒ¨æ—¥æœŸè®¡ç®—
+            // Í·²¿ÈÕÆÚ¼ÆËã
             for(var i = 1; i < nowXingQiJi + 1; i++) {
                 var preMonthDay = preDayCount - nowXingQiJi + i;
                 var tmpName = 'day' + i;
                 var lunar = 'lunar' + i;
-                //æ—¥ã€å†œå†ã€å®Œæ•´æ—¥æœŸ
+                //ÈÕ¡¢Å©Àú¡¢ÍêÕûÈÕÆÚ
                 var y = parseInt(self.nowYear);
                 var m = parseInt(self.nowMonth);
                 m = -1 + m;
@@ -360,18 +365,18 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 }
                 fileInfo[tmpName] = preMonthDay;
                 fileInfo[lunar] = self._getLunar(preMonthDay, m, y);
-                //  console.log("å†œå†ï¼š" + fileInfo[lunar]);
-                //å­˜å‚¨å‰ä¸€ä¸ªæœˆæ•°æ®
+                //  console.log("Å©Àú£º" + fileInfo[lunar]);
+                //´æ´¢Ç°Ò»¸öÔÂÊı¾İ
                 //console.log(self.nowYear + "-" + self.tom(parseInt(self.nowMonth - 1)) + "-" + self.tod(preMonthDay));
                 tmpInfo.push({
-                    day: preMonthDay, //æ—¥
-                    lunar: self._getLunar(preMonthDay, m, y), //å†œå†
-                    date: y + "-" + self.tom(m) + "-" + self.tod(preMonthDay), //å®Œæ•´æ—¥æœŸ
-                    isforbid: "0", //å‰ä¸€ä¸ªæœˆå’Œåä¸€ä¸ªæœˆä¸å¯ç‚¹å‡»
+                    day: preMonthDay, //ÈÕ
+                    lunar: self._getLunar(preMonthDay, m, y), //Å©Àú
+                    date: y + "-" + self.tom(m) + "-" + self.tod(preMonthDay), //ÍêÕûÈÕÆÚ
+                    isforbid: "0", //Ç°Ò»¸öÔÂºÍºóÒ»¸öÔÂ²»¿Éµã»÷
                     tip: 'prev'
                 });
-                //console.log("å¹´ä»½ï¼š" + self.nowYear);
-                //console.log("ä¸Šä¸ªæœˆçš„æ•°æ®ï¼š\n" + JSON.stringify(tmpInfo)+"\n");
+                //console.log("Äê·İ£º" + self.nowYear);
+                //console.log("ÉÏ¸öÔÂµÄÊı¾İ£º\n" + JSON.stringify(tmpInfo)+"\n");
             }
             var daonale = 0;
 
@@ -382,14 +387,14 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     var lunar = 'lunar' + index;
                     fileInfo[tmpName] = indexindex;
                     fileInfo[lunar] = self._getLunar(indexindex);
-                    //å­˜å‚¨å½“å‰æœˆæ•°æ®
+                    //´æ´¢µ±Ç°ÔÂÊı¾İ
                     tmpInfo.push({
-                        day: indexindex, //æ—¥
-                        lunar: self._getLunar(indexindex), //å†œå†
-                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //å®Œæ•´æ—¥æœŸ
-                        isforbid: "1" //å½“å‰æœˆå¯ç‚¹å‡»
+                        day: indexindex, //ÈÕ
+                        lunar: self._getLunar(indexindex), //Å©Àú
+                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //ÍêÕûÈÕÆÚ
+                        isforbid: "1" //µ±Ç°ÔÂ¿Éµã»÷
                     });
-                    //  console.log(self.tom(parseInt(self.nowMonth)) + "æœˆä»½ï¼š" + self.tod(indexindex));
+                    //  console.log(self.tom(parseInt(self.nowMonth)) + "ÔÂ·İ£º" + self.tod(indexindex));
 
                 }
             }
@@ -400,14 +405,14 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     var lunar = 'lunar' + index;
                     fileInfo[tmpName] = indexindex;
                     fileInfo[lunar] = self._getLunar(indexindex);
-                    //å­˜å‚¨å½“å‰æœˆæ•°æ®
+                    //´æ´¢µ±Ç°ÔÂÊı¾İ
                     tmpInfo.push({
-                        day: indexindex, //æ—¥
-                        lunar: self._getLunar(indexindex), //å†œå†
-                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //å®Œæ•´æ—¥æœŸ
-                        isforbid: "1" //å½“å‰æœˆå¯ç‚¹å‡»
+                        day: indexindex, //ÈÕ
+                        lunar: self._getLunar(indexindex), //Å©Àú
+                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //ÍêÕûÈÕÆÚ
+                        isforbid: "1" //µ±Ç°ÔÂ¿Éµã»÷
                     });
-                    //console.log(self.tom(parseInt(self.nowMonth)) + "æœˆä»½ï¼š" + self.tod(indexindex));
+                    //console.log(self.tom(parseInt(self.nowMonth)) + "ÔÂ·İ£º" + self.tod(indexindex));
 
                 }
             }
@@ -418,14 +423,14 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     var lunar = 'lunar' + index;
                     fileInfo[tmpName] = indexindex;
                     fileInfo[lunar] = self._getLunar(indexindex);
-                    //å­˜å‚¨å½“å‰æœˆæ•°æ®
+                    //´æ´¢µ±Ç°ÔÂÊı¾İ
                     tmpInfo.push({
-                        day: indexindex, //æ—¥
-                        lunar: self._getLunar(indexindex), //å†œå†
-                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //å®Œæ•´æ—¥æœŸ
-                        isforbid: "1"//å½“å‰æœˆå¯ç‚¹å‡»
+                        day: indexindex, //ÈÕ
+                        lunar: self._getLunar(indexindex), //Å©Àú
+                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //ÍêÕûÈÕÆÚ
+                        isforbid: "1"//µ±Ç°ÔÂ¿Éµã»÷
                     });
-                    //console.log(self.tom(parseInt(self.nowMonth)) + "æœˆä»½ï¼š" + self.tod(indexindex));
+                    //console.log(self.tom(parseInt(self.nowMonth)) + "ÔÂ·İ£º" + self.tod(indexindex));
                 }
             }
             if(dayCount == '31') {
@@ -435,21 +440,21 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     var lunar = 'lunar' + index;
                     fileInfo[tmpName] = indexindex;
                     fileInfo[lunar] = self._getLunar(indexindex);
-                    //å­˜å‚¨å½“å‰æœˆæ•°æ®
+                    //´æ´¢µ±Ç°ÔÂÊı¾İ
                     tmpInfo.push({
-                        day: indexindex, //æ—¥
-                        lunar: self._getLunar(indexindex), //å†œå†
-                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //å®Œæ•´æ—¥æœŸ
-                        isforbid: "1" //å½“å‰æœˆå¯ç‚¹å‡»
+                        day: indexindex, //ÈÕ
+                        lunar: self._getLunar(indexindex), //Å©Àú
+                        date: self.nowYear + "-" + self.tom(self.nowMonth) + "-" + self.tod(indexindex), //ÍêÕûÈÕÆÚ
+                        isforbid: "1" //µ±Ç°ÔÂ¿Éµã»÷
                     });
-                    //console.log(self.tom(parseInt(self.nowMonth)) + "æœˆä»½ï¼š" + self.tod(indexindex));
+                    //console.log(self.tom(parseInt(self.nowMonth)) + "ÔÂ·İ£º" + self.tod(indexindex));
                 }
             }
-            // å°¾éƒ¨æ—¥æœŸè®¡ç®—
+            // Î²²¿ÈÕÆÚ¼ÆËã
             for(var index2 = daonale + 1, index3 = 1; index2 <= 42; index2++, index3++) {
                 var tmpName = 'day' + index2;
                 var lunar = 'lunar' + index2;
-                //æ—¥ã€å†œå†ã€å®Œæ•´æ—¥æœŸ
+                //ÈÕ¡¢Å©Àú¡¢ÍêÕûÈÕÆÚ
                 var y2 = parseInt(self.nowYear);
                 var m2 = parseInt(self.nowMonth) + parseInt(1);
                 if(m2 == 13) {
@@ -458,19 +463,19 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 }
                 fileInfo[tmpName] = index3;
                 fileInfo[lunar] = self._getLunar(index3, m2, y2);
-                //å­˜å‚¨å½“å‰æœˆæ•°æ®
+                //´æ´¢µ±Ç°ÔÂÊı¾İ
                 tmpInfo.push({
-                    day: index3, //æ—¥
-                    lunar: self._getLunar(index3, m2, y2), //å†œå†
-                    date: y2 + "-" + self.tom(m2) + "-" + self.tod(index3), //å®Œæ•´æ—¥æœŸ
-                    isforbid: "0", //å‰ä¸€æœˆå’Œåä¸€æœˆä¸å¯ç‚¹å‡»
+                    day: index3, //ÈÕ
+                    lunar: self._getLunar(index3, m2, y2), //Å©Àú
+                    date: y2 + "-" + self.tom(m2) + "-" + self.tod(index3), //ÍêÕûÈÕÆÚ
+                    isforbid: "0", //Ç°Ò»ÔÂºÍºóÒ»ÔÂ²»¿Éµã»÷
                     tip: 'next'
                 });
-                //console.log("åé¢ä¸€ä¸ªæœˆçš„æ•°æ®ï¼š\n" + JSON.stringify(tmpInfo) + "\n");
-                //console.log(self.tom(parseInt(self.nowMonth) + parseInt(1)) + "æœˆä»½ï¼š" + self.tod(index3));
+                //console.log("ºóÃæÒ»¸öÔÂµÄÊı¾İ£º\n" + JSON.stringify(tmpInfo) + "\n");
+                //console.log(self.tom(parseInt(self.nowMonth) + parseInt(1)) + "ÔÂ·İ£º" + self.tod(index3));
             }
             if(self.options.isDebug) {
-                console.log("*********æ—¥å†æ ¼å¼********:\n" + JSON.stringify(tmpInfo) + "\n");
+                console.log("*********ÈÕÀú¸ñÊ½********:\n" + JSON.stringify(tmpInfo) + "\n");
             }
             //this._render(fileInfo, tmpInfo, dateObj.activeSlideNode);
             this._render({
@@ -481,19 +486,19 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         },
 
         /**
-         * è§†å›¾çš„æ¸²æŸ“å’Œæ•°æ®åˆ†ç¦»ï¼Œé‡‡ç”¨å†…éƒ¨çš„æ•°æ®
+         * ÊÓÍ¼µÄäÖÈ¾ºÍÊı¾İ·ÖÀë£¬²ÉÓÃÄÚ²¿µÄÊı¾İ
          */
         _render: function (dataObj, callback) {
             var self = this;
-            // æ¸²æŸ“ä¹‹å‰ï¼Œä¸šåŠ¡ajaxè¯·æ±‚ï¼Œæ˜¾ç¤ºæ—¥å†ä¸Šæ—¥ç¨‹æ ‡è®°
+            // äÖÈ¾Ö®Ç°£¬ÒµÎñajaxÇëÇó£¬ÏÔÊ¾ÈÕÀúÉÏÈÕ³Ì±ê¼Ç
             var dateStr = self.nowYear + "-" + self.nowMonth + "-";
-            // å¿…é¡»è®¾ç½®å»¶è¿Ÿ300ms,å¦åˆ™æ»‘åŠ¨æœ‰åå·®
+            // ±ØĞëÉèÖÃÑÓ³Ù300ms,·ñÔò»¬¶¯ÓĞÆ«²î
             setTimeout(function () {
                 self.options.dataRequest(dateStr, function (data) {
                     var res = data || [];
-                    //å’Œä¸šåŠ¡ç»‘å®š
+                    //ºÍÒµÎñ°ó¶¨
                     if(self.options.isDebug) {
-                        console.log("*********ä¸šåŠ¡æ•°æ®ï¼š********:\n" + JSON.stringify(res) + "\n");
+                        console.log("*********ÒµÎñÊı¾İ£º********:\n" + JSON.stringify(res) + "\n");
                     }
                     for(var k = 0; k < dataObj.tmpInfo.length; k++) {
                         var tipClassItem = self._isShowTips(dataObj.tmpInfo[k].date);
@@ -509,11 +514,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         }
                         dataObj.tmpInfo[k].disabled = self._isDisAble(dataObj.tmpInfo[k].date)
                     }
-                    //å®Œå…¨æ”¯æŒè‡ªå®šä¹‰å¤–éƒ¨ä¼ å…¥æ¨¡æ¿
+                    //ÍêÈ«Ö§³Ö×Ô¶¨ÒåÍâ²¿´«ÈëÄ£°å
                     var html = self.getThemeHtml(dataObj);
 
                     if(self.options.isDebug) {
-                        console.log("*********æ—¥å†æ¨¡æ¿********:\n" + html + "\n");
+                        console.log("*********ÈÕÀúÄ£°å********:\n" + html + "\n");
                     }
                     if(typeof (callback) == "function") {
                         callback && callback(html, dataObj.tmpInfo);
@@ -522,28 +527,28 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             }, 100);
         },
         /**
-         * è·å–ä¸»é¢˜æ¨¡æ¿
+         * »ñÈ¡Ö÷ÌâÄ£°å
          */
         getThemeHtml: function (dataObj) {
             var self = this;
-            // æ¨¡æ¿é›†åˆ
+            // Ä£°å¼¯ºÏ
             var html = "";
-            // æ¨¡æ¿é¡¹
+            // Ä£°åÏî
             var template = "";
-            // å½“å‰æ—¥æœŸ
+            // µ±Ç°ÈÕÆÚ
             var curr = self.currentDate;
 
             for(var i = 0, len = dataObj.tmpInfo.length; i < len; i++) {
-                // å¦‚æœä¼ å…¥æ¨¡æ¿ä¸ºç©ºï¼Œåˆ™é»˜è®¤æ—¥å†ä¸»é¢˜æ¨¡æ¿
+                // Èç¹û´«ÈëÄ£°åÎª¿Õ£¬ÔòÄ¬ÈÏÈÕÀúÖ÷ÌâÄ£°å
                 var value = dataObj.tmpInfo[i];
                 var templData = self.options.template(value, curr);
                 if(!templData) {
 
-                    //console.log("=======é»˜è®¤æ—¥å†ä¸»é¢˜æ¨¡æ¿=======");
-                    // =======é»˜è®¤æ—¥å†ä¸»é¢˜æ¨¡æ¿=======
-                    // ä¸Šä¸€æœˆå’Œä¸‹ä¸€æœˆä¸å¯ç‚¹å‡»æ¨¡æ¿
+                    //console.log("=======Ä¬ÈÏÈÕÀúÖ÷ÌâÄ£°å=======");
+                    // =======Ä¬ÈÏÈÕÀúÖ÷ÌâÄ£°å=======
+                    // ÉÏÒ»ÔÂºÍÏÂÒ»ÔÂ²»¿Éµã»÷Ä£°å
                     if(value.isSelected=="1") {
-                        // ä¸ªæ€§åŒ–å’Œä¸šåŠ¡è´´è¿‘
+                        // ¸öĞÔ»¯ºÍÒµÎñÌù½ü
                         // template = '<div class="em-calendar-item em-calendar-active isforbid{{isforbid}} tip{{tip}}" date="{{date}}" ><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p><span class="dot dot-type1"></span></div>';
                         template = '<div class="em-calendar-item em-calendar-active isforbid{{isforbid}} tip{{tip}} {{disabled}}" date="{{date}}" ><div class="background-circle"></div><span class="tips {{showTips}}">{{tipsText}}</span><span class="day">{{day}}</span><p class="lunar">{{lunar}}</p></div>';
                     } else {
@@ -551,8 +556,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                     }
                     html += Mustache.render(template, value);
                 } else {
-                    // console.log("=======è‡ªå®šä¹‰ä¼ å…¥=======");
-                    // =======è‡ªå®šä¹‰ä¼ å…¥=======
+                    // console.log("=======×Ô¶¨Òå´«Èë=======");
+                    // =======×Ô¶¨Òå´«Èë=======
                     html += Mustache.render(templData, value);
                 }
             }
@@ -560,30 +565,30 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             return html;
         },
         /**
-         * åˆ›å»ºDOMå…ƒç´ å·¥å‚ï¼Œå°†æ ·å¼å›ºå®šç»“æ„å­˜å‚¨èµ·æ¥ï¼Œå¤–éƒ¨å¯é€šè¿‡æ ·å¼ä¿®æ”¹
+         * ´´½¨DOMÔªËØ¹¤³§£¬½«ÑùÊ½¹Ì¶¨½á¹¹´æ´¢ÆğÀ´£¬Íâ²¿¿ÉÍ¨¹ıÑùÊ½ĞŞ¸Ä
          */
         CreateDOMFactory: function (callback) {
             var self = this;
-            // å¤´éƒ¨æ ·å¼
+            // Í·²¿ÑùÊ½
             self.HEADER_BAR = '<div class="em-calendar-container"><div class="em-week">\
-							<span class="em-red">æ—¥</span>\
-							<span>ä¸€</span>\
-							<span>äºŒ</span>\
-							<span>ä¸‰</span>\
-							<span>å››</span>\
-							<span>äº”</span>\
-							<span class="em-red">å…­</span>\
+							<span class="em-red">ÈÕ</span>\
+							<span>Ò»</span>\
+							<span>¶ş</span>\
+							<span>Èı</span>\
+							<span>ËÄ</span>\
+							<span>Îå</span>\
+							<span class="em-red">Áù</span>\
 						</div>';
 
             self.HEADER = '<div class="swiper-container">\
 							<div class="swiper-wrapper">';
 
-            // åº•éƒ¨æ ·å¼
+            // µ×²¿ÑùÊ½
             self.FOOTER = '</div>\
 							</div>\
 							</div>';
 
-            // æ—¥å†é¢æ¿å®¹å™¨æ ·å¼
+            // ÈÕÀúÃæ°åÈİÆ÷ÑùÊ½
             self.SLIDER_ITEM_CONTAINER = '<div class="swiper-slide">\
 									<div class="em-calendar-content">\
 									<div class="em-calendar-wrapper">{{{templ}}}</div>\
@@ -592,13 +597,13 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             var output = self.HEADER_BAR + self.HEADER + self.FOOTER;
             self.container.innerHTML = output;
 
-            // æ‰§è¡Œå›è°ƒ
+            // Ö´ĞĞ»Øµ÷
             callback && callback();
         },
         /*
-         * JSONæ•°ç»„å»é‡
+         * JSONÊı×éÈ¥ÖØ
          * @param: [array] json Array
-         * @param: [string] å”¯ä¸€çš„keyåï¼Œæ ¹æ®æ­¤é”®åè¿›è¡Œå»é‡
+         * @param: [string] Î¨Ò»µÄkeyÃû£¬¸ù¾İ´Ë¼üÃû½øĞĞÈ¥ÖØ
          */
         uniqueArray: function (array, key) {
             var result = [array[0]];
@@ -640,9 +645,9 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             return "";
         },
         /**
-         * å¢åŠ äº‹ä»¶ï¼ŒåŒ…æ‹¬
-         * æ—¥å†ç‚¹å‡»çš„ç›‘å¬
-         * æ—¥å†å·¦æ»‘ã€å³æ»‘åˆ‡æ¢ï¼Œç­‰ç­‰
+         * Ôö¼ÓÊÂ¼ş£¬°üÀ¨
+         * ÈÕÀúµã»÷µÄ¼àÌı
+         * ÈÕÀú×ó»¬¡¢ÓÒ»¬ÇĞ»»£¬µÈµÈ
          */
         _addEvent: function () {
             var self = this;
@@ -651,10 +656,10 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             var preCallback = self.options.preCallback;
             var nextCallback = self.options.nextCallback;
 
-            // è®°å½•ä¸Šä¸€æœˆå’Œä¸Šä¸€å¹´çš„ç´¢å¼•
+            // ¼ÇÂ¼ÉÏÒ»ÔÂºÍÉÏÒ»ÄêµÄË÷Òı
             var preMonthIndex = parseInt(self.curMonth) - parseInt(2);
             var preYearIndex = self.curYear;
-            // è®°å½•ä¸‹ä¸€æœˆå’Œä¸‹ä¸€å¹´çš„ç´¢å¼•
+            // ¼ÇÂ¼ÏÂÒ»ÔÂºÍÏÂÒ»ÄêµÄË÷Òı
             var nextMonthIndex = parseInt(self.curMonth);
             var nextYearIndex = self.DateObj().getFullYear();
             var nextYear = self.curYear;
@@ -664,26 +669,26 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             var currYearIndex = self.curYear;
             var currMonthIndex = parseInt(self.curMonth);
             var currDayIndex = self.curDay;
-            // åˆ›å»ºswiper ç»„ä»¶å¯¹è±¡
+            // ´´½¨swiper ×é¼ş¶ÔÏó
             self.mySwiper = new Swiper('.swiper-container', {
                 loop: false,
                 initialSlide: 1,
                 speed: 150,
                 prevButton: self.options.pre,
                 nextButton: self.options.next,
-                // å¢åŠ ç›‘å¬ç‚¹å‡»äº‹ä»¶
+                // Ôö¼Ó¼àÌıµã»÷ÊÂ¼ş
                 onClick: function (swiper, e) {
-                    // æ—¥æœŸç°è‰²éƒ¨åˆ†ä¸å¯ç”¨
+                    // ÈÕÆÚ»ÒÉ«²¿·Ö²»ÆôÓÃ
                     var _this = e.target.parentNode;
-                    // æ—¥æœŸè¾“å‡ºå€¼
+                    // ÈÕÆÚÊä³öÖµ
                     var dateStr = _this.getAttribute('date');
-                    // å†œå†è¾“å‡ºå€¼
+                    // Å©ÀúÊä³öÖµ
                     if(_this.querySelector('.lunar')) {
                         var lunarStr = _this.querySelector('.lunar').innerText.trim();
                     } else {
-                        var lunarStr = "å·²ç­¾";
+                        var lunarStr = "ÒÑÇ©";
                     }
-                    // å¯ç‚¹å‡»åŒºåŸŸ
+                    // ¿Éµã»÷ÇøÓò
                     if(!_this.classList.contains('isforbid0')) {
                         if(_this.getAttribute("date") && !_this.classList.contains('disabled')) {
                             if (self.options.mode == 'single'){
@@ -706,39 +711,39 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                             return;
                         }
                     } else {
-                        // ä¸å¯ç‚¹å‡»åŒºåŸŸ
+                        // ²»¿Éµã»÷ÇøÓò
                         if(_this.classList.contains('tipprev')) {
-                            // å‰è¿›
+                            // Ç°½ø
                             self.slidePrev().then(function () {
-                                // ç»™ç‰¹å®šæ—¥æœŸæ–°å¢ç‚¹å‡»æ¿€æ´»æ ·å¼
+                                // ¸øÌØ¶¨ÈÕÆÚĞÂÔöµã»÷¼¤»îÑùÊ½
                                 // self.addActiveStyleFordate(dateStr);
                             });
                         } else if(_this.classList.contains('tipnext')) {
-                            // åé€€
+                            // ºóÍË
                             self.slideNext().then(function () {
-                                // ç»™ç‰¹å®šæ—¥æœŸæ–°å¢ç‚¹å‡»æ¿€æ´»æ ·å¼
+                                // ¸øÌØ¶¨ÈÕÆÚĞÂÔöµã»÷¼¤»îÑùÊ½
                                 // self.addActiveStyleFordate(dateStr);
                             });
 
                         }
                     }
-                    // ç‚¹å‡»å›è°ƒ
+                    // µã»÷»Øµ÷
                     onItemClick && onItemClick({
-                            date: dateStr, //æ—¥æœŸ
-                            lunar: lunarStr, //å†œå†
+                            date: dateStr, //ÈÕÆÚ
+                            lunar: lunarStr, //Å©Àú
                             checkedList: self.checkedList
                     });
 
                 },
                 /**
-                 * @description æœˆä»½é€’å¢
-                 * @param {Object} swiper swiperå¯¹è±¡
+                 * @description ÔÂ·İµİÔö
+                 * @param {Object} swiper swiper¶ÔÏó
                  */
                 onSlideNextStart: function (swiper) {
                     count++;
                     if(count == "1") {
-                        //alert("ç­‰äº1ï¼Œå¹¶ä¸èƒ½ä»£è¡¨æ˜¯å½“å‰æœˆ");
-                        //alert("ä¼ è¿‡æ¥çš„æ˜¯"+self.nowYear+self.nowMonth);
+                        //alert("µÈÓÚ1£¬²¢²»ÄÜ´ú±íÊÇµ±Ç°ÔÂ");
+                        //alert("´«¹ıÀ´µÄÊÇ"+self.nowYear+self.nowMonth);
                         currDayIndex = self.curDay;
                         currMonthIndex = parseInt(self.curMonth);
                     } else {
@@ -750,14 +755,14 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         currYearIndex = parseInt(currYearIndex) + parseInt(1);
                         currMonthIndex = 1;
                     }
-                    // å¼€å¯è°ƒè¯•æ¨¡å¼
+                    // ¿ªÆôµ÷ÊÔÄ£Ê½
                     if(self.options.isDebug) {
-                        console.log("currMonthIndexï¼š" + currMonthIndex);
-                        console.log("currYearIndexï¼š" + currYearIndex);
+                        console.log("currMonthIndex£º" + currMonthIndex);
+                        console.log("currYearIndex£º" + currYearIndex);
                         console.log(">>>>>>" + self.nowYear + "-" + self.nowMonth + "-" + self.nowDay);
                     }
-                    //alert("å‘åå›è°ƒ"+">>>>>>" + currYearIndex + "-" + currMonthIndex + "-" + self.nowDay);
-                    //å›è°ƒ
+                    //alert("Ïòºó»Øµ÷"+">>>>>>" + currYearIndex + "-" + currMonthIndex + "-" + self.nowDay);
+                    //»Øµ÷
                     swipeCallback && swipeCallback({
                         year: currYearIndex,
                         month: self.tom(currMonthIndex),
@@ -767,17 +772,17 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         action: 'next'
                     });
                     /**
-                     * @description ååŠ 
+                     * @description ºó¼Ó
                      */
                     nextMonthIndex += parseInt(1);
                     if(nextMonthIndex == 13) {
-                        nextYear = nextYearIndex + 1;
+                        nextYear = currYearIndex + 1;
                         nextMonthIndex = 1;
                     }
                     nextMonth = self.tom(nextMonthIndex);
 
                     if(self.options.isDebug) {
-                        console.log("(å)åˆå§‹åŒ–å¹´æœˆæ—¥ï¼š" + nextYear + "-" + nextMonth + "-" + "01");
+                        console.log("(ºó)³õÊ¼»¯ÄêÔÂÈÕ£º" + nextYear + "-" + nextMonth + "-" + "01");
                     }
 
                     self.refreshData({
@@ -789,7 +794,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         outputs.push({
                             templ: output1
                         });
-                        // æ¸²æŸ“æ—¥å†æ¨¡æ¿
+                        // äÖÈ¾ÈÕÀúÄ£°å
                         var templ = self.SLIDER_ITEM_CONTAINER;
                         var html = "";
                         for(var i = 0; i < outputs.length; i++) {
@@ -797,7 +802,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         }
                         swiper.appendSlide(html);
                     });
-                    // å¦‚æœå¾€åæ»‘åŠ¨æ—¶åä¸€ä¸ªæœˆéå½“å‰æœˆï¼Œé‡æ–°æ¸²æŸ“1å·æ ·å¼
+                    // Èç¹ûÍùºó»¬¶¯Ê±ºóÒ»¸öÔÂ·Çµ±Ç°ÔÂ£¬ÖØĞÂäÖÈ¾1ºÅÑùÊ½
                     // if(self.tom(currMonthIndex) !== self.curMonth ) {
                     //     var chooseDom = document.querySelector('.swiper-slide-active .em-calendar-active')
                     //     if(chooseDom) {
@@ -809,32 +814,31 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
 
                 },
                 /**
-                 * @description æœˆä»½é€’å‡
-                 * @param {Object} swiper swiperå¯¹è±¡
+                 * @description ÔÂ·İµİ¼õ
+                 * @param {Object} swiper swiper¶ÔÏó
                  */
                 onSlidePrevStart: function (swiper) {
                     count--;
-                    if(count == "1") {
-                        currDayIndex = self.curDay;
-                        currMonthIndex = parseInt(self.curMonth);
-                    } else {
+                    // if(count == "1") {
+                    //     currDayIndex = self.curDay;
+                    //     currMonthIndex = parseInt(self.curMonth);
+                    // } else {
                         currMonthIndex = parseInt(currMonthIndex) - parseInt(1);
                         currDayIndex = "01";
 
-                    }
-
-                    if(currMonthIndex == 0) {
+                    // }
+                    if(currMonthIndex == '0') {
                         currYearIndex = parseInt(currYearIndex) - parseInt(1);
                         currMonthIndex = 12;
                     }
-                    // å¼€å¯è°ƒè¯•æ¨¡å¼
+                    // ¿ªÆôµ÷ÊÔÄ£Ê½
                     if(self.options.isDebug) {
-                        console.log("currMonthIndexï¼š" + currMonthIndex);
-                        console.log("currYearIndexï¼š" + currYearIndex);
-                        console.log("å½“å‰" + self.nowYear + "-" + self.nowMonth + "æœˆä»½");
+                        console.log("currMonthIndex£º" + currMonthIndex);
+                        console.log("currYearIndex£º" + currYearIndex);
+                        console.log("µ±Ç°" + self.nowYear + "-" + self.nowMonth + "ÔÂ·İ");
                     }
 
-                    // ç‚¹å‡»å›è°ƒ
+                    // µã»÷»Øµ÷
                     swipeCallback && swipeCallback({
                         year: currYearIndex,
                         month: self.tom(currMonthIndex),
@@ -849,11 +853,11 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         preMonthIndex = 12;
                     }
                     var preMonth = self.tom(preMonthIndex);
-                    //console.log("å‰åŠ ï¼š" + preYearIndex + "-" + preMonth + "-" + "01");
-                    //ejs.ui.toast("å‰åŠ ï¼š" + preYearIndex + "-" + preMonth + "-" + preDay);
+                    //console.log("Ç°¼Ó£º" + preYearIndex + "-" + preMonth + "-" + "01");
+                    //ejs.ui.toast("Ç°¼Ó£º" + preYearIndex + "-" + preMonth + "-" + preDay);
 
                     preMonthIndex--;
-                    // åˆ·æ–°æ—¥å†
+                    // Ë¢ĞÂÈÕÀú
 
                     self.refreshData({
                         year: preYearIndex,
@@ -865,7 +869,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                         outputs.push({
                             templ: output1
                         });
-                        // æ¸²æŸ“æ—¥å†æ¨¡æ¿
+                        // äÖÈ¾ÈÕÀúÄ£°å
                         var templ = self.SLIDER_ITEM_CONTAINER;
                         var html = "";
                         for(var i = 0; i < outputs.length; i++) {
@@ -877,26 +881,26 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
                 }
             });
 
-            // å›åˆ°ä»Šå¤©
+            // »Øµ½½ñÌì
             if(self._selector(self.options.backToToday)) {
                 self._selector(self.options.backToToday).addEventListener("touchstart", function () {
-                    // å¤–éƒ¨æ‰§è¡Œå›è°ƒ
+                    // Íâ²¿Ö´ĞĞ»Øµ÷
                     var curYear = self.DateObj().getFullYear();
                     var curMonth = self.tod(self.DateObj().getMonth() + 1);
                     var curDay = self.tod(self.DateObj().getDate());
-                    // åˆ·æ–°
+                    // Ë¢ĞÂ
                     self.refresh();
 
                 });
             }
         },
         /**
-         * @description ç»™ç‰¹å®šæ—¥æœŸæ–°å¢é€‰ä¸­æ¿€æ´»æ ·å¼
-         * @param {Object} dateStr ç‚¹å‡»åçš„æ—¥æœŸ ,ä¾‹å¦‚ï¼šâ€œ2018-08-20â€
+         * @description ¸øÌØ¶¨ÈÕÆÚĞÂÔöÑ¡ÖĞ¼¤»îÑùÊ½
+         * @param {Object} dateStr µã»÷ºóµÄÈÕÆÚ ,ÀıÈç£º¡°2018-08-20¡±
          */
         addActiveStyleFordate: function (dateStr) {
             var self = this;
-            // ç»™å‰åæœˆçš„ç‚¹å‡»æ—¥æœŸåŠ é€‰ä¸­æ ‡è®°
+            // ¸øÇ°ºóÔÂµÄµã»÷ÈÕÆÚ¼ÓÑ¡ÖĞ±ê¼Ç
             var clickactives = document.querySelector('.swiper-slide-active').querySelectorAll('.em-calendar-item');
             for(var i = 0; i < clickactives.length; i++) {
                 if(clickactives[i].getAttribute("date") == dateStr) {
@@ -920,7 +924,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             }
         },
         /**
-         * å‘å‰æ»‘åŠ¨
+         * ÏòÇ°»¬¶¯
          */
         slidePrev: function (options) {
             var self = this;
@@ -931,7 +935,7 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         },
 
         /**
-         * å‘åæ»‘åŠ¨
+         * Ïòºó»¬¶¯
          */
         slideNext: function (options) {
             var self = this;
@@ -941,51 +945,51 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             });
         },
         /**
-         * å¤–éƒ¨åˆ·æ–°
+         * Íâ²¿Ë¢ĞÂ
          */
         refresh: function (options) {
             var self = this;
-            // é”€æ¯
+            // Ïú»Ù
             self.destroySwiper();
-            // åˆ›å»º
+            // ´´½¨
             self.initEntry(options);
 
         },
         /**
-         * é”€æ¯swiper
+         * Ïú»Ùswiper
          */
         destroySwiper: function () {
             var self = this;
-            // é”€æ¯
+            // Ïú»Ù
             self.mySwiper.destroy(true);
         },
 
         /**
-         * è·å–å½“å‰å†œå†
+         * »ñÈ¡µ±Ç°Å©Àú
          * @param {Object} currentday
          * @param {Object} month
          * @return {String} 
          */
         _getLunar: function (currentday, month, year) {
             var self = this;
-            // ä¸­é—´éœ€é»˜è®¤å½“å‰å¹´å’Œå½“å‰æœˆï¼Œä¸¤å¤´éœ€è¦ä¼ å¹´å’Œæœˆ
+            // ÖĞ¼äĞèÄ¬ÈÏµ±Ç°ÄêºÍµ±Ç°ÔÂ£¬Á½Í·ĞèÒª´«ÄêºÍÔÂ
             var yy = year || self.nowYear;
             var mm = month || self.nowMonth;
             var dd = currentday;
             return this._getLunarDay(yy, mm, dd);
         },
         /**
-         * æ ¹æ®å¹´æœˆè®¡ç®—å½“æœˆçš„å¤©æ•°
+         * ¸ù¾İÄêÔÂ¼ÆËãµ±ÔÂµÄÌìÊı
          * @param {Object} y
          * @param {Object} m
          */
         _judgeDaysByYearMonth: function (y, m) {
             var self = this;
             if(y == undefined || y == null) {
-                throw "=====è·å–å½“å‰æœˆä»½å¤©æ•°æ—¶ï¼Œç¼ºå°‘yå‚æ•°ï¼Œæœªå®šä¹‰ï¼=======";
+                throw "=====»ñÈ¡µ±Ç°ÔÂ·İÌìÊıÊ±£¬È±ÉÙy²ÎÊı£¬Î´¶¨Òå£¡=======";
             }
             if(m == undefined || m == null) {
-                throw "=====è·å–å½“å‰æœˆä»½å¤©æ•°æ—¶ï¼Œç¼ºå°‘må‚æ•°ï¼Œæœªå®šä¹‰ï¼=======";
+                throw "=====»ñÈ¡µ±Ç°ÔÂ·İÌìÊıÊ±£¬È±ÉÙm²ÎÊı£¬Î´¶¨Òå£¡=======";
             }
             var y = parseInt(y);
             var m = parseInt(m);
@@ -1010,8 +1014,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         },
 
         /**
-         * è¿›è¡Œä¸€æ¬¡å…¨å±€éªŒè¯ï¼ŒéªŒè¯è¾“å…¥çš„åˆæ³•æ€§
-         * è¿™ä¸ªéªŒè¯æ˜¯å¼ºåˆ¶æ€§çš„
+         * ½øĞĞÒ»´ÎÈ«¾ÖÑéÖ¤£¬ÑéÖ¤ÊäÈëµÄºÏ·¨ĞÔ
+         * Õâ¸öÑéÖ¤ÊÇÇ¿ÖÆĞÔµÄ
          */
         _validate: function () {
             var flag = true;
@@ -1021,31 +1025,31 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             return flag;
         },
         _selector: function (el) {
-            // å‡å°‘è€¦åˆ
+            // ¼õÉÙñîºÏ
             return document.querySelector(el);
         },
         /**
-         *  åˆ¤æ–­å…ƒç´ åœ¨æ•°ç»„ä¸­æ˜¯å¦å­˜åœ¨
-         * @param {Object} str æ•°å­—æˆ–è€…å­—ç¬¦ä¸²å…ƒç´ 
-         * @param {Object} arr æœ‰æ•ˆæ•°ç»„
+         *  ÅĞ¶ÏÔªËØÔÚÊı×éÖĞÊÇ·ñ´æÔÚ
+         * @param {Object} str Êı×Ö»òÕß×Ö·û´®ÔªËØ
+         * @param {Object} arr ÓĞĞ§Êı×é
          */
         _inArray: function (str, arr) {
-            // ä¸æ˜¯æ•°ç»„åˆ™æŠ›å‡ºå¼‚å¸¸ 
+            // ²»ÊÇÊı×éÔòÅ×³öÒì³£ 
             if(!Array.isArray(arr)) {
                 throw "arguments is not Array";
             }
-            // éå†æ˜¯å¦åœ¨æ•°ç»„ä¸­ 
+            // ±éÀúÊÇ·ñÔÚÊı×éÖĞ 
             for(var i = 0, k = arr.length; i < k; i++) {
                 if(str == arr[i]) {
                     return true;
                 }
             }
-            // å¦‚æœä¸åœ¨æ•°ç»„ä¸­å°±ä¼šè¿”å›false 
+            // Èç¹û²»ÔÚÊı×éÖĞ¾Í»á·µ»Øfalse 
             return false;
         },
         _getBit: function (m, n) {
             var self = this;
-            // å†œå†è½¬æ¢ 
+            // Å©Àú×ª»» 
             return(m >> n) & 1;
         },
         _e2c: function () {
@@ -1090,15 +1094,15 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
         _getcDateString: function () {
             var self = this;
             var tmp = "";
-            /*æ˜¾ç¤ºå†œå†å¹´ï¼šï¼ˆ å¦‚ï¼šç”²åˆ(é©¬)å¹´ ï¼‰*/
+            /*ÏÔÊ¾Å©ÀúÄê£º£¨ Èç£º¼×Îç(Âí)Äê £©*/
             if(self.cMonth < 1) {
-                // tmp += "(é—°)";
+                // tmp += "(Èò)";
                 // tmp += self.monString.charAt(-self.cMonth - 1);
             } else {
                 // tmp += self.monString.charAt(self.cMonth - 1);
             }
-            //tmp += "æœˆ";
-            tmp += (self.cDay < 11) ? "åˆ" : ((self.cDay < 20) ? "å" : ((self.cDay < 30) ? "å»¿" : "ä¸‰å"));
+            //tmp += "ÔÂ";
+            tmp += (self.cDay < 11) ? "³õ" : ((self.cDay < 20) ? "Ê®" : ((self.cDay < 30) ? "Ø¥" : "ÈıÊ®"));
             if(self.cDay % 10 != 0 || self.cDay == 10) {
                 tmp += self.numString.charAt((self.cDay - 1) % 10);
             }
@@ -1118,8 +1122,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
 
         },
         /**
-         * å°†1,2,3,4,5æ ¼å¼åŒ–01,02,03,04,05
-         * @param {Object} m æœˆä»½è½¬æ¢
+         * ½«1,2,3,4,5¸ñÊ½»¯01,02,03,04,05
+         * @param {Object} m ÔÂ·İ×ª»»
          */
         tom: function (m) {
             if(parseInt(m) > 9) {
@@ -1130,8 +1134,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             return m;
         },
         /**
-         * å°†1,2,3,4,5æ ¼å¼åŒ–01,02,03,04,05
-         * @param {Object} æ—¥è½¬æ¢
+         * ½«1,2,3,4,5¸ñÊ½»¯01,02,03,04,05
+         * @param {Object} ÈÕ×ª»»
          */
         tod: function (d) {
             if(parseInt(d) > 9) {
@@ -1142,8 +1146,8 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             return d;
         },
         /**
-         * è·å–å°æ—¶ã€åˆ†é’Ÿã€ç§’    ä¾‹å¦‚ï¼š18:09:00
-         * @param {Object} format hh:mm è¾“å‡º00:00  hh:mm:ss è¾“å‡º00:00:00
+         * »ñÈ¡Ğ¡Ê±¡¢·ÖÖÓ¡¢Ãë    ÀıÈç£º18:09:00
+         * @param {Object} format hh:mm Êä³ö00:00  hh:mm:ss Êä³ö00:00:00
          */
         getTime: function (format) {
             var self = this;
@@ -1159,31 +1163,31 @@ window.innerCalendarUtil = window.innerCalendarUtil || (function (exports) {
             return timeStr;
         },
         /**
-         * è·å–å¯¹è±¡
+         * »ñÈ¡¶ÔÏó
          */
         DateObj: function (dateStr) {
             var dateObj;
             if(!dateStr) {
-                //throw("è¯·è¾“å…¥åˆæ³•æ—¥æœŸæ ¼å¼ï¼"+str);
+                //throw("ÇëÊäÈëºÏ·¨ÈÕÆÚ¸ñÊ½£¡"+str);
                 dateObj = new Date();
             } else {
-                // æ³¨æ„ï¼šé¡»å…ˆæŠŠæ—¶é—´æˆ³(122891289)è½¬æˆå­—ç¬¦ä¸²ç„¶åè¿›è¡ŒæŸ¥æ‰¾
+                // ×¢Òâ£ºĞëÏÈ°ÑÊ±¼ä´Á(122891289)×ª³É×Ö·û´®È»ºó½øĞĞ²éÕÒ
                 var index = dateStr.toString().indexOf('-');
                 if(index == "-1") {
-                    // è§£ææ—¶é—´æˆ³
+                    // ½âÎöÊ±¼ä´Á
                     dateObj = new Date(dateStr);
                 } else {
-                    // è§£ææ­£å¸¸æ ¼å¼æ—¶é—´æˆ³ï¼Œåˆ‡è®°ä¸è¦ç›´æ¥ä¼   new Date 2017-09-09 19:00:00ï¼Œ
+                    // ½âÎöÕı³£¸ñÊ½Ê±¼ä´Á£¬ÇĞ¼Ç²»ÒªÖ±½Ó´«  new Date 2017-09-09 19:00:00£¬
                     dateObj = new Date(dateStr.replace(/-/g, '/'));
                 }
             }
             return dateObj;
         },
         /**
-         * @description è·å–æŸä¸ªå…ƒç´ çš„æ‰€æœ‰å…„å¼ŸèŠ‚ç‚¹;è¿™é‡Œè¿˜æ˜¯å»ºè®®ä½¿ç”¨åº“æ¥å®ç° ï¼Œå–œæ¬¢æ·±ç©¶çš„å¯ä»¥å‚è€ƒä¸‹é¢ä»£ç ï¼ˆåŸç†ç±»ä¼¼Zepto,jquery çš„silbling()æ–¹æ³•ï¼‰ã€‚
-         * @param {Object} elem  é€‰ä¸­çš„å½“å‰èŠ‚ç‚¹
-         * @param {Function} forCB  éå†å›è°ƒæ¯ä¸ªå…„å¼ŸèŠ‚ç‚¹
-         * ç”¨æ³•å¦‚ä¸‹ï¼š
+         * @description »ñÈ¡Ä³¸öÔªËØµÄËùÓĞĞÖµÜ½Úµã;ÕâÀï»¹ÊÇ½¨ÒéÊ¹ÓÃ¿âÀ´ÊµÏÖ £¬Ï²»¶Éî¾¿µÄ¿ÉÒÔ²Î¿¼ÏÂÃæ´úÂë£¨Ô­ÀíÀàËÆZepto,jquery µÄsilbling()·½·¨£©¡£
+         * @param {Object} elem  Ñ¡ÖĞµÄµ±Ç°½Úµã
+         * @param {Function} forCB  ±éÀú»Øµ÷Ã¿¸öĞÖµÜ½Úµã
+         * ÓÃ·¨ÈçÏÂ£º
          */
         sibling: function (elem, forCB) {
             var r = [];

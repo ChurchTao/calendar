@@ -1,13 +1,7 @@
 # <font color="#F68736" face="微软雅黑">移动端H5日历组件</font>
 
 
-## 实例展示
-![](http://ydyfcs.epoint.com.cn:8066/doc/ydyf3z/assets/005/20180408-1d1fec76.gif)  
 
-## 依赖资源
-
-- `libs/calendar_base.js` 日历组件基类js库
-- `libs/calendar_base.css` 日历组件基类css库，可以根据业务需求，任意个性化，从而达到设计视觉效果
 
 ## 配置和使用方法
 

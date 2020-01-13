@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="GBK">
+    <title>日历组件</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <link rel="stylesheet" type="text/css" href="css/libs/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/libs/Calendar.css"/>
+    <link rel="stylesheet" type="text/css" href="css/CalendarConfig.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    var _winWidth = document.documentElement.scrollWidth, _style = document.getElementsByTagName("html")[0].style;
+    _winWidth >= 750 ? _style.fontSize = "100px" : _style.fontSize = _winWidth / 7.5 + "px";
+</script>
+<div class="main-content">
+    <div class="top-month-box">
+    </div>
+    <!--<div class="em-journal-title" style="display: none">-->
+        <!--<div class="em-per-block pre">-->
+            <!--<span class="mui-icon mui-icon-arrowleft"></span>-->
+            <!--<span>上一月</span>-->
+        <!--</div>-->
+        <!--<div class="em-per-block mid">-->
+            <!--<span>...</span>-->
+        <!--</div>-->
+        <!--<div class="em-per-block next">-->
+            <!--<span>下一月</span>-->
+            <!--<span class="mui-icon mui-icon-arrowright"></span>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--日历容器-->
+    <div id="calendar">
+
+    </div>
+    <!--返回今天-->
+    <!--<div class="backToday">-->
+    <!--返回今天-->
+    <!--</div>-->
+</div>
+<script src="js/libs/swiper.min.js" type="text/javascript"></script>
+<script src="js/libs/mustache.min.js" type="text/javascript"></script>
+<script src="js/libs/Calendar.js" type="text/javascript"></script>
+<script src="js/CalendarConfig.js" type="text/javascript"></script>
+</body>
+</html>

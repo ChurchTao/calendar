@@ -1,20 +1,13 @@
-/**
- * ä½œè€…ï¼š å­™å°Šè·¯
- * åˆ›å»ºæ—¶é—´ï¼š 2018/08/21 13:27:09
- * ç‰ˆæœ¬ï¼š [1.0, 2018/08/21]
- * ç‰ˆæƒï¼š æ±Ÿè‹å›½æ³°æ–°ç‚¹è½¯ä»¶æœ‰é™å…¬å¸
- * æè¿°ï¼š  æ—¥å†ç»„ä»¶ç¤ºä¾‹
- */
 
 "use strict";
 
-var customBiz = {
+var demo = {
 	calendar: {},
 	refresh: function(options){
 		this.calendar.refresh(options);
 	},
 	init: function() {
-		//Dateçš„prototype å±æ€§å¯ä»¥å‘å¯¹è±¡æ·»åŠ å±æ€§å’Œæ–¹æ³•ã€‚
+		//DateµÄprototype ÊôĞÔ¿ÉÒÔÏò¶ÔÏóÌí¼ÓÊôĞÔºÍ·½·¨¡£
 		Date.prototype.Format = function(fmt){
 			var o = {
 				"M+": this.getMonth()+1,
@@ -24,61 +17,61 @@ var customBiz = {
 				"s+": this.getSeconds(),
 				"S+": this.getMilliseconds()
 			};
-			//å› ä¸ºdate.getFullYear()å‡ºæ¥çš„ç»“æœæ˜¯numberç±»å‹çš„,æ‰€ä»¥ä¸ºäº†è®©ç»“æœå˜æˆå­—ç¬¦ä¸²å‹ï¼Œä¸‹é¢æœ‰ä¸¤ç§æ–¹æ³•ï¼š
+			//ÒòÎªdate.getFullYear()³öÀ´µÄ½á¹ûÊÇnumberÀàĞÍµÄ,ËùÒÔÎªÁËÈÃ½á¹û±ä³É×Ö·û´®ĞÍ£¬ÏÂÃæÓĞÁ½ÖÖ·½·¨£º
 			if(/(y+)/.test(fmt)){
-				//ç¬¬ä¸€ç§ï¼šåˆ©ç”¨å­—ç¬¦ä¸²è¿æ¥ç¬¦â€œ+â€ç»™date.getFullYear()+""ï¼ŒåŠ ä¸€ä¸ªç©ºå­—ç¬¦ä¸²ä¾¿å¯ä»¥å°†numberç±»å‹è½¬æ¢æˆå­—ç¬¦ä¸²ã€‚
+				//µÚÒ»ÖÖ£ºÀûÓÃ×Ö·û´®Á¬½Ó·û¡°+¡±¸ødate.getFullYear()+""£¬¼ÓÒ»¸ö¿Õ×Ö·û´®±ã¿ÉÒÔ½«numberÀàĞÍ×ª»»³É×Ö·û´®¡£
 				fmt=fmt.replace(RegExp.$1,(this.getFullYear()+"").substr(4-RegExp.$1.length));
 			}
 			for(var k in o){
 				if (new RegExp("(" + k +")").test(fmt)){
-					//ç¬¬äºŒç§ï¼šä½¿ç”¨String()ç±»å‹è¿›è¡Œå¼ºåˆ¶æ•°æ®ç±»å‹è½¬æ¢String(date.getFullYear())ï¼Œè¿™ç§æ›´å®¹æ˜“ç†è§£ã€‚
+					//µÚ¶şÖÖ£ºÊ¹ÓÃString()ÀàĞÍ½øĞĞÇ¿ÖÆÊı¾İÀàĞÍ×ª»»String(date.getFullYear())£¬ÕâÖÖ¸üÈİÒ×Àí½â¡£
 					fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(String(o[k]).length)));
 				}
 			}
 			return fmt;
 		};
 		var self = this;
-		// åˆå§‹åŒ–æ—¥å†
+		// ³õÊ¼»¯ÈÕÀú
 
 		var calendar = new Calendar({
 			mode: 'multiply',
 			// mode: 'single',
-			// swiperæ»‘åŠ¨å®¹å™¨
+			// swiper»¬¶¯ÈİÆ÷
 			container: "#calendar",
-			// ä¸Šä¸€æœˆèŠ‚ç‚¹
+			// ÉÏÒ»ÔÂ½Úµã
 			pre: ".pre",
-			// ä¸‹ä¸€æœˆèŠ‚ç‚¹
+			// ÏÂÒ»ÔÂ½Úµã
 			next: ".next",
-			// å›åˆ°ä»Šå¤©
+			// »Øµ½½ñÌì
 			backToToday: ".backToday",
-			// ä¸šåŠ¡æ•°æ®æ”¹å˜
+			// ÒµÎñÊı¾İ¸Ä±ä
 			dataRequest: function(currdate, callback, _this) {
-				// æ— æ—¥ç¨‹å®‰æ’
+				// ÎŞÈÕ³Ì°²ÅÅ
 				var data = [];
 				callback && callback(data);
 			},
-			// ç‚¹å‡»æ—¥æœŸäº‹ä»¶
+			// µã»÷ÈÕÆÚÊÂ¼ş
 			onItemClick: function(item) {
 				console.log(item);
 				console.log(item.checkedList);
 			},
-			// æ»‘åŠ¨å›è°ƒ
+			// »¬¶¯»Øµ÷
 			swipeCallback: function(item) {
 				console.log(item)
 				var defaultDate = item.date;
 				refreshMonthBox(item.month,item.action)
 			},
-			// è°ƒè¯•
+			// µ÷ÊÔ
 			isDebug: false,
 			checkedList: [
                 '2019-12-11',
                 '2019-12-12'
 			],
             tipsList: [
-				{date:'2019-12-25',class:'hdjr_tip',text:'å‰'},
-				{date:'2019-12-27',class:'hdjr_tip',text:'å‰'}
+				{date:'2019-12-25',class:'hdjr_tip',text:'¼ª'},
+				{date:'2019-12-27',class:'hdjr_tip',text:'¼ª'}
 			],
-			// ä»ä»Šæ—¥èµ·å¯ä»¥é€‰ä¸­
+			// ´Ó½ñÈÕÆğ¿ÉÒÔÑ¡ÖĞ
 			startDate: new Date().Format("yyyy-MM-dd")
 		});
 		this.calendar = calendar;
@@ -99,7 +92,7 @@ var customBiz = {
             		trueMonth = curMonth + i
 				}
 				monthList.push(trueMonth);
-				html+='<div class="month-box-item index'+i+'">'+(trueMonth)+'æœˆ</div>'
+				html+='<div class="month-box-item index'+i+'">'+(trueMonth)+'ÔÂ</div>'
             }
             monthBox.innerHTML = html;
 			setTimeout(function () {
@@ -127,7 +120,7 @@ var customBiz = {
 				if (monthList[i]==nowMonth) {
 					curIndex = i;
 				}
-				html+='<div class="month-box-item index'+i+'">'+monthList[i]+'æœˆ</div>'
+				html+='<div class="month-box-item index'+i+'">'+monthList[i]+'ÔÂ</div>'
 			}
 			monthBox.innerHTML = html;
 			setTimeout(function () {
@@ -139,5 +132,5 @@ var customBiz = {
 	}
 }
 
-// åˆå§‹åŒ–
-customBiz.init();
+// ³õÊ¼»¯
+demo.init();
